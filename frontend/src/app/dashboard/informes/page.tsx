@@ -1,8 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import * as XLSX from "xlsx";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function InformesPage() {
+  const tableRef = useRef<HTMLTableElement>(null);
+
+  const handleExportExcel = () => {
+    if (!tableRef.current) return;
+    const wb = XLSX.utils.table_to_book(tableRef.current);
+    XLSX.writeFile(wb, "calificaciones.xlsx");
+  };
+
+  const handleDownloadPDF = async () => {
+    if (!tableRef.current) return;
+    try {
+      const canvas = await html2canvas(tableRef.current, { scale: 2 });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("landscape", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, "PNG", 10, 10, pdfWidth - 20, pdfHeight - 20);
+      pdf.save("reporte-calificaciones.pdf");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleAction = (msg: string) => {
+    alert(msg);
+  };
   return (
     <div className="space-y-lg">
       {/* Selection & Export Header */}
@@ -36,11 +65,11 @@ export default function InformesPage() {
           </div>
         </div>
         <div className="flex items-center gap-sm">
-          <button className="flex items-center gap-xs px-md py-sm bg-surface-container-high text-on-surface hover:bg-surface-container-highest rounded-xl transition-all border border-outline-variant font-label-md text-label-md">
+          <button onClick={handleExportExcel} className="flex items-center gap-xs px-md py-sm bg-surface-container-high text-on-surface hover:bg-surface-container-highest rounded-xl transition-all border border-outline-variant font-label-md text-label-md">
             <span className="material-symbols-outlined text-[18px]">upload_file</span>
             Exportar Excel
           </button>
-          <button className="flex items-center gap-xs px-md py-sm bg-primary text-on-primary hover:opacity-90 rounded-xl transition-all shadow-sm font-label-md text-label-md">
+          <button onClick={handleDownloadPDF} className="flex items-center gap-xs px-md py-sm bg-primary text-on-primary hover:opacity-90 rounded-xl transition-all shadow-sm font-label-md text-label-md">
             <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span>
             Descargar PDF
           </button>
@@ -50,15 +79,15 @@ export default function InformesPage() {
       {/* Main Data Grid & Tables Section */}
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-lg items-start">
         {/* Grade Entry Matrix */}
-        <section className="xl:col-span-9 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
-          <div className="p-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
+        <section className="xl:col-span-9 bg-surface-container-lowest rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30 overflow-hidden">
+          <div className="p-md bg-surface-container border-b border-outline-variant/30 flex justify-between items-center">
             <h2 className="font-h3 text-h3 text-on-surface">Matriz de Calificaciones</h2>
             <span className="font-label-sm text-label-sm text-primary px-sm py-xs bg-secondary-container rounded-full">
               Editando: Matemáticas
             </span>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <table ref={tableRef} className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-surface-container-low border-b border-outline-variant">
                   <th className="px-md py-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider sticky left-0 bg-surface-container-low z-10 w-64 border-r border-outline-variant">
@@ -73,40 +102,16 @@ export default function InformesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant/30">
-                {[
-                  { name: "Alvarez, Martina Lucía", t: "9.5", p1: "8.0", p2: "9.0", c: "10", avg: "8.9", state: "Promovido", color: "bg-secondary-container text-on-secondary-container" },
-                  { name: "Benítez, Julián", t: "4.5", p1: "5.0", p2: "6.0", c: "7", avg: "5.6", state: "En Proceso", color: "bg-error-container text-on-error-container", errorP1: true },
-                  { name: "Cáceres, Sofía Elena", t: "10", p1: "10", p2: "9.5", c: "10", avg: "9.9", state: "Promovido", color: "bg-secondary-container text-on-secondary-container" },
-                  { name: "Domínguez, Roberto", t: "7.0", p1: "6.5", p2: "7.5", c: "8", avg: "7.2", state: "Promovido", color: "bg-secondary-container text-on-secondary-container" },
-                  { name: "Espósito, Mateo", t: "5.5", p1: "4.0", p2: "5.0", c: "6", avg: "5.1", state: "En Proceso", color: "bg-error-container text-on-error-container", errorP1: true, errorP2: true },
-                ].map((s, i) => (
-                  <tr key={i} className="hover:bg-surface-container transition-colors group">
-                    <td className="px-md py-md font-body-sm text-body-sm font-medium sticky left-0 bg-surface-container-lowest group-hover:bg-surface-container z-10 border-r border-outline-variant">
-                      {s.name}
-                    </td>
-                    <td className="px-md py-md text-center">
-                      <input className="w-12 text-center bg-transparent border-none focus:ring-1 focus:ring-primary rounded py-xs font-body-sm outline-none" type="text" defaultValue={s.t} />
-                    </td>
-                    <td className="px-md py-md text-center">
-                      <input className={`w-12 text-center bg-transparent border-none focus:ring-1 focus:ring-primary rounded py-xs font-body-sm outline-none ${s.errorP1 ? "text-error" : ""}`} type="text" defaultValue={s.p1} />
-                    </td>
-                    <td className="px-md py-md text-center">
-                      <input className={`w-12 text-center bg-transparent border-none focus:ring-1 focus:ring-primary rounded py-xs font-body-sm outline-none ${s.errorP2 ? "text-error" : ""}`} type="text" defaultValue={s.p2} />
-                    </td>
-                    <td className="px-md py-md text-center">
-                      <input className="w-12 text-center bg-transparent border-none focus:ring-1 focus:ring-primary rounded py-xs font-body-sm outline-none" type="text" defaultValue={s.c} />
-                    </td>
-                    <td className="px-md py-md text-center bg-primary-container/5 font-bold text-primary">{s.avg}</td>
-                    <td className="px-md py-md text-center">
-                      <span className={`px-sm py-xs ${s.color} rounded-full text-[10px] font-bold uppercase`}>{s.state}</span>
-                    </td>
-                  </tr>
-                ))}
+                <tr>
+                  <td colSpan={7} className="px-md py-xl text-center text-on-surface-variant font-body-md">
+                    No hay estudiantes registrados en este curso.
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
           <div className="p-md bg-surface-container-low border-t border-outline-variant flex justify-between items-center text-on-surface-variant">
-            <span className="font-label-sm text-label-sm">Mostrando 5 de 32 alumnos</span>
+            <span className="font-label-sm text-label-sm">Mostrando 0 de 0 alumnos</span>
             <div className="flex gap-xs">
               <button className="p-xs bg-surface hover:bg-surface-container-high border border-outline-variant rounded transition-all">
                 <span className="material-symbols-outlined text-[20px]">chevron_left</span>
@@ -126,66 +131,53 @@ export default function InformesPage() {
             <div className="space-y-md">
               <div className="flex justify-between items-center">
                 <span className="font-body-sm text-body-sm">Promedio General</span>
-                <span className="font-h3 text-h3">7.8</span>
+                <span className="font-h3 text-h3">0.0</span>
               </div>
               <div className="w-full bg-white/20 h-1.5 rounded-full">
-                <div className="bg-white h-1.5 rounded-full" style={{ width: "78%" }}></div>
+                <div className="bg-white h-1.5 rounded-full" style={{ width: "0%" }}></div>
               </div>
               <div className="flex justify-between font-label-sm text-label-sm opacity-80 pt-xs">
-                <span>24 Promovidos</span>
-                <span>8 En Riesgo</span>
+                <span>0 Promovidos</span>
+                <span>0 En Riesgo</span>
               </div>
             </div>
           </div>
 
           {/* Observations Section */}
-          <div className="bg-surface-container-lowest rounded-xl border border-outline-variant p-md space-y-md shadow-sm">
+          <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-md space-y-md shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)]">
             <div className="flex items-center gap-sm">
               <span className="material-symbols-outlined text-primary">edit_note</span>
               <h2 className="font-h3 text-h3 text-on-surface">Seguimiento</h2>
             </div>
             <div className="space-y-md">
-              <div className="p-sm bg-surface-container-low rounded-lg border border-outline-variant/30">
-                <div className="flex justify-between mb-xs">
-                  <span className="font-label-sm text-label-sm font-bold">Alvarez, Martina</span>
-                  <span className="text-[10px] text-on-surface-variant italic">Hoy, 10:24</span>
-                </div>
-                <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Excelente desempeño en el primer parcial. Participación activa en clase.</p>
-              </div>
-              <div className="p-sm bg-error-container/10 rounded-lg border border-error/20">
-                <div className="flex justify-between mb-xs">
-                  <span className="font-label-sm text-label-sm font-bold text-error">Benítez, Julián</span>
-                  <span className="text-[10px] text-error/70 italic">Ayer, 15:40</span>
-                </div>
-                <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Faltó a la entrega de trabajos prácticos. Se requiere citar al tutor.</p>
-              </div>
+              <p className="font-body-sm text-on-surface-variant p-sm">No hay seguimientos registrados recientes.</p>
             </div>
             <div className="pt-md">
               <textarea
                 className="w-full bg-surface-container-low border border-outline-variant rounded-lg p-sm font-body-sm text-body-sm focus:border-primary outline-none min-h-[100px] resize-none"
                 placeholder="Agregar observación general para el curso..."
               ></textarea>
-              <button className="w-full mt-sm py-sm bg-primary-container text-on-primary-container font-label-md text-label-md rounded-lg hover:opacity-90 transition-all font-bold">
+              <button onClick={() => handleAction("Observación guardada")} className="w-full mt-sm py-sm bg-primary-container text-on-primary-container font-label-md text-label-md rounded-lg hover:opacity-90 transition-all font-bold">
                 Guardar Observación
               </button>
             </div>
           </div>
 
           {/* Quick Actions Card */}
-          <div className="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm">
-            <div className="p-sm bg-surface-container border-b border-outline-variant font-label-sm text-label-sm font-bold text-on-surface-variant uppercase text-center">
+          <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)]">
+            <div className="p-sm bg-surface-container border-b border-outline-variant/30 font-label-sm text-label-sm font-bold text-on-surface-variant uppercase text-center">
               Acciones Rápidas
             </div>
             <div className="divide-y divide-outline-variant/30">
-              <button className="w-full px-md py-sm flex items-center gap-md hover:bg-surface-container transition-all text-on-surface">
+              <button onClick={() => handleAction("Boletines enviados por correo.")} className="w-full px-md py-sm flex items-center gap-md hover:bg-surface-container transition-all text-on-surface">
                 <span className="material-symbols-outlined text-outline">mail</span>
                 <span className="font-label-md text-label-md">Enviar boletines</span>
               </button>
-              <button className="w-full px-md py-sm flex items-center gap-md hover:bg-surface-container transition-all text-on-surface">
+              <button onClick={() => handleAction("Actas generadas.")} className="w-full px-md py-sm flex items-center gap-md hover:bg-surface-container transition-all text-on-surface">
                 <span className="material-symbols-outlined text-outline">history_edu</span>
                 <span className="font-label-md text-label-md">Actas de Examen</span>
               </button>
-              <button className="w-full px-md py-sm flex items-center gap-md hover:bg-surface-container transition-all text-on-surface">
+              <button onClick={() => handleAction("Periodo validado y cerrado.")} className="w-full px-md py-sm flex items-center gap-md hover:bg-surface-container transition-all text-on-surface">
                 <span className="material-symbols-outlined text-outline">verified</span>
                 <span className="font-label-md text-label-md">Validar Periodo</span>
               </button>
@@ -196,21 +188,21 @@ export default function InformesPage() {
 
       {/* Visual Data Summary (Bento Style) */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-lg">
-        <div className="md:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center gap-md">
+        <div className="md:col-span-2 bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex items-center gap-md shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)]">
           <div className="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-primary text-3xl">trending_up</span>
           </div>
           <div>
             <h4 className="font-label-md text-label-md font-bold text-on-surface">Tendencia de Rendimiento</h4>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">El curso ha mejorado un 12% respecto al trimestre anterior.</p>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">Sin datos suficientes para calcular tendencia.</p>
           </div>
         </div>
-        <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col justify-center text-center">
-          <span className="font-display text-display text-primary">92%</span>
+        <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex flex-col justify-center text-center shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)]">
+          <span className="font-display text-display text-primary">0%</span>
           <span className="font-label-sm text-label-sm text-on-surface-variant uppercase font-bold">Asistencia Promedio</span>
         </div>
         <div className="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col justify-center text-center">
-          <span className="font-display text-display text-tertiary">15</span>
+          <span className="font-display text-display text-tertiary">-</span>
           <span className="font-label-sm text-label-sm text-on-surface-variant uppercase font-bold">Días para el Cierre</span>
         </div>
       </div>

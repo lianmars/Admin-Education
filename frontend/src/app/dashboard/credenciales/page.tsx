@@ -1,8 +1,36 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function CredencialesPage() {
+  const credencialRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadPDF = async () => {
+    if (!credencialRef.current) return;
+    try {
+      const canvas = await html2canvas(credencialRef.current, { scale: 2 });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("portrait", "mm", "a4");
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("credencial-alumno.pdf");
+    } catch (err) {
+      console.error("Error generating PDF:", err);
+    }
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleAction = (action: string) => {
+    alert(`${action} ejecutado con éxito.`);
+  };
   return (
     <div className="space-y-xl">
       {/* Header Actions */}
@@ -16,11 +44,11 @@ export default function CredencialesPage() {
           <h2 className="font-h1 text-h1 text-on-surface">Expediente del Alumno</h2>
         </div>
         <div className="flex gap-sm">
-          <button className="flex items-center gap-sm px-md py-sm border border-outline-variant rounded-lg text-primary font-label-md hover:bg-surface-container-high transition-all active:scale-95">
+          <button onClick={handlePrint} className="flex items-center gap-sm px-md py-sm border border-outline-variant rounded-lg text-primary font-label-md hover:bg-surface-container-high transition-all active:scale-95 print:hidden">
             <span className="material-symbols-outlined">print</span>
             Imprimir
           </button>
-          <button className="flex items-center gap-sm px-md py-sm bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 shadow-sm transition-all active:scale-95">
+          <button onClick={handleDownloadPDF} className="flex items-center gap-sm px-md py-sm bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 shadow-sm transition-all active:scale-95 print:hidden">
             <span className="material-symbols-outlined">download</span>
             Descargar Credencial
           </button>
@@ -31,7 +59,7 @@ export default function CredencialesPage() {
       <div className="grid grid-cols-12 gap-lg">
         {/* ID CARD PREVIEW (Main Feature) */}
         <div className="col-span-12 lg:col-span-5 flex justify-center items-start">
-          <div className="w-full max-w-[400px] bg-white rounded-xl overflow-hidden id-card-shadow border border-outline-variant relative">
+          <div ref={credencialRef} className="w-full max-w-[400px] bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30 relative">
             {/* Card Header Pattern */}
             <div className="h-24 bg-primary relative overflow-hidden">
               <div
@@ -68,33 +96,33 @@ export default function CredencialesPage() {
               </div>
 
               <div className="text-center mt-md mb-lg">
-                <h3 className="font-h2 text-h2 text-on-surface">Mateo Sebastian Ortiz</h3>
+                <h3 className="font-h2 text-h2 text-on-surface">Nombre del Alumno</h3>
                 <p className="font-label-md text-primary uppercase tracking-widest font-bold">
-                  5º Grado - División B
+                  Grado - División
                 </p>
               </div>
 
               {/* QR Code Section */}
-              <div className="w-full bg-surface-container-low p-lg rounded-xl flex flex-col items-center justify-center border border-outline-variant">
-                <div className="bg-white p-sm rounded-lg shadow-sm border border-outline-variant mb-sm w-32 h-32 flex items-center justify-center">
+              <div className="w-full bg-surface-container-low p-lg rounded-xl flex flex-col items-center justify-center border border-outline-variant/30">
+                <div className="bg-surface-container-lowest p-sm rounded-lg shadow-sm border border-outline-variant/30 mb-sm w-32 h-32 flex items-center justify-center">
                   <span className="material-symbols-outlined text-[80px] text-on-surface-variant">qr_code_2</span>
                 </div>
-                <p className="font-label-sm text-on-surface-variant font-mono">ID: STU-2024-091-B</p>
+                <p className="font-label-sm text-on-surface-variant font-mono">ID: -</p>
               </div>
 
               {/* Detail List */}
               <div className="w-full mt-lg grid grid-cols-2 gap-md border-t border-outline-variant pt-lg">
                 <div>
                   <p className="font-label-sm text-on-surface-variant">Fecha de Nacimiento</p>
-                  <p className="font-body-md text-on-surface font-semibold">12 May 2011</p>
+                  <p className="font-body-md text-on-surface font-semibold">-</p>
                 </div>
                 <div>
                   <p className="font-label-sm text-on-surface-variant">Tipo de Sangre</p>
-                  <p className="font-body-md text-on-surface font-semibold">O+ Positivo</p>
+                  <p className="font-body-md text-on-surface font-semibold">-</p>
                 </div>
                 <div className="col-span-2">
                   <p className="font-label-sm text-on-surface-variant">Contacto de Emergencia</p>
-                  <p className="font-body-md text-on-surface font-semibold">+54 11 4567-8901</p>
+                  <p className="font-body-md text-on-surface font-semibold">-</p>
                 </div>
               </div>
             </div>
@@ -112,22 +140,22 @@ export default function CredencialesPage() {
         <div className="col-span-12 lg:col-span-7 space-y-lg">
           {/* Quick Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-md">
-            <div className="bg-white p-md rounded-xl id-card-shadow border-l-4 border-primary">
+            <div className="bg-surface-container-lowest p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30 border-l-4 border-l-primary">
               <p className="font-label-sm text-on-surface-variant">Asistencia Global</p>
-              <p className="font-h2 text-h2 text-primary">94%</p>
+              <p className="font-h2 text-h2 text-primary">0%</p>
             </div>
-            <div className="bg-white p-md rounded-xl id-card-shadow border-l-4 border-secondary-container">
+            <div className="bg-surface-container-lowest p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30 border-l-4 border-l-secondary-container">
               <p className="font-label-sm text-on-surface-variant">Promedio Gral</p>
-              <p className="font-h2 text-h2 text-secondary">8.7</p>
+              <p className="font-h2 text-h2 text-secondary">0.0</p>
             </div>
-            <div className="bg-white p-md rounded-xl id-card-shadow border-l-4 border-tertiary-container">
+            <div className="bg-surface-container-lowest p-md rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30 border-l-4 border-l-tertiary-container">
               <p className="font-label-sm text-on-surface-variant">Conducta</p>
-              <p className="font-h2 text-h2 text-tertiary">A+</p>
+              <p className="font-h2 text-h2 text-tertiary">-</p>
             </div>
           </div>
 
           {/* Academic Record */}
-          <div className="bg-white p-lg rounded-xl id-card-shadow border border-outline-variant">
+          <div className="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30">
             <div className="flex justify-between items-center mb-md">
               <h4 className="font-h3 text-h3 text-on-surface">Información de Inscripción</h4>
               <span className="bg-primary-container text-on-primary-container px-sm py-[2px] rounded text-[12px] font-bold">
@@ -179,9 +207,9 @@ export default function CredencialesPage() {
           </div>
 
           {/* Accessibility Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-md">
-            <button className="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-outline-variant hover:bg-surface-container-high transition-colors text-left group">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-md print:hidden">
+            <button onClick={() => handleAction("Validar QR")} className="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-outline-variant/30 hover:bg-surface-container-high transition-colors text-left group">
+              <div className="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)]">
                 <span className="material-symbols-outlined">qr_code_scanner</span>
               </div>
               <div>
@@ -189,8 +217,8 @@ export default function CredencialesPage() {
                 <p className="font-label-sm text-on-surface-variant">Verificar autenticidad</p>
               </div>
             </button>
-            <button className="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-outline-variant hover:bg-surface-container-high transition-colors text-left group">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-sm">
+            <button onClick={() => handleAction("Compartir vía Enlace")} className="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-outline-variant/30 hover:bg-surface-container-high transition-colors text-left group">
+              <div className="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)]">
                 <span className="material-symbols-outlined">share</span>
               </div>
               <div>

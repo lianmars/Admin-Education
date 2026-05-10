@@ -2,11 +2,114 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --color-secondary-fixed-dim: #68dba9;
+    --color-secondary-fixed: #85f8c4;
+    --color-error: #ba1a1a;
+    --color-tertiary-container: #fc7c78;
+    --color-primary: #006c49;
+    --color-on-secondary-fixed: #002114;
+    --color-on-error-container: #93000a;
+    --color-on-primary-container: #00422b;
+    --color-on-primary-fixed: #002113;
+    --color-on-background: #161d19;
+    --color-surface-variant: #dde4dd;
+    --color-on-surface-variant: #3c4a42;
+    --color-on-surface: #161d19;
+    --color-tertiary-fixed: #ffdad7;
+    --color-primary-fixed-dim: #4edea3;
+    --color-secondary-container: #82f5c1;
+    --color-tertiary: #a43a3a;
+    --color-surface: #f4fbf4;
+    --color-primary-fixed: #6ffbbe;
+    --color-surface-container-low: #eef6ee;
+    --color-on-error: #ffffff;
+    --color-surface-container: #e8f0e9;
+    --color-primary-container: #10b981;
+    --color-outline: #6c7a71;
+    --color-on-tertiary-container: #711419;
+    --color-on-tertiary: #ffffff;
+    --color-surface-tint: #006c49;
+    --color-surface-container-lowest: #ffffff;
+    --color-secondary: #006c4a;
+    --color-on-primary-fixed-variant: #005236;
+    --color-on-secondary-container: #00714e;
+    --color-inverse-surface: #2b322d;
+    --color-on-primary: #ffffff;
+    --color-on-tertiary-fixed-variant: #842225;
+    --color-surface-bright: #f4fbf4;
+    --color-on-secondary-fixed-variant: #005137;
+    --color-surface-container-high: #e3eae3;
+    --color-error-container: #ffdad6;
+    --color-on-secondary: #ffffff;
+    --color-surface-container-highest: #dde4dd;
+    --color-inverse-on-surface: #ebf3eb;
+    --color-background: #f4fbf4;
+    --color-tertiary-fixed-dim: #ffb3af;
+    --color-on-tertiary-fixed: #410005;
+    --color-inverse-primary: #4edea3;
+    --color-outline-variant: #bbcabf;
+    --color-surface-dim: #d4dcd5;
+  }
+
+  .dark {
+    --color-secondary-fixed-dim: #4edea3;
+    --color-secondary-fixed: #68dba9;
+    --color-error: #ffb4ab;
+    --color-tertiary-container: #842225;
+    --color-primary: #6ffbbe;
+    --color-on-secondary-fixed: #005236;
+    --color-on-error-container: #ffdad6;
+    --color-on-primary-container: #85f8c4;
+    --color-on-primary-fixed: #005236;
+    --color-on-background: #dde4dd;
+    --color-surface-variant: #3c4a42;
+    --color-on-surface-variant: #bbcabf;
+    --color-on-surface: #dde4dd;
+    --color-tertiary-fixed: #ffb3af;
+    --color-primary-fixed-dim: #10b981;
+    --color-secondary-container: #005137;
+    --color-tertiary: #ffb3af;
+    --color-surface: #121212;
+    --color-primary-fixed: #4edea3;
+    --color-surface-container-low: #1e1e1e;
+    --color-on-error: #690005;
+    --color-surface-container: #222222;
+    --color-primary-container: #005236;
+    --color-outline: #8b938d;
+    --color-on-tertiary-container: #ffdad7;
+    --color-on-tertiary: #410005;
+    --color-surface-tint: #6ffbbe;
+    --color-surface-container-lowest: #0a0a0a;
+    --color-secondary: #4edea3;
+    --color-on-primary-fixed-variant: #00714e;
+    --color-on-secondary-container: #85f8c4;
+    --color-inverse-surface: #ebf3eb;
+    --color-on-primary: #003825;
+    --color-on-tertiary-fixed-variant: #a43a3a;
+    --color-surface-bright: #333333;
+    --color-on-secondary-fixed-variant: #00714e;
+    --color-surface-container-high: #2a2a2a;
+    --color-error-container: #93000a;
+    --color-on-secondary: #003826;
+    --color-surface-container-highest: #333333;
+    --color-inverse-on-surface: #161d19;
+    --color-background: #121212;
+    --color-tertiary-fixed-dim: #fc7c78;
+    --color-on-tertiary-fixed: #690005;
+    --color-inverse-primary: #006c49;
+    --color-outline-variant: #3c4a42;
+    --color-surface-dim: #121212;
+  }
+}
+
 body {
-  background-color: #f4fbf4;
-  background-image: radial-gradient(#006c4911 1px, transparent 1px);
+  background-color: var(--color-background);
+  background-image: radial-gradient(color-mix(in srgb, var(--color-primary) 10%, transparent) 1px, transparent 1px);
   background-size: 32px 32px;
   font-family: 'Inter', sans-serif;
+  color: var(--color-on-surface);
 }
 
 .material-symbols-outlined {

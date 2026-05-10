@@ -44,7 +44,7 @@ export default function AsistenciaPage() {
     return () => { scannerRef.current?.clear().catch(() => {}); };
   }, []);
 
-  const pct = stats.total > 0 ? Math.round((stats.presentes / stats.total) * 100) : 76;
+  const pct = stats.total > 0 ? Math.round((stats.presentes / stats.total) * 100) : 0;
 
   return (
     <div className="space-y-lg">
@@ -94,12 +94,12 @@ export default function AsistenciaPage() {
           </div>
 
           {/* Últimos registros */}
-          <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
-            <div className="px-lg py-md border-b border-outline-variant flex justify-between items-center">
+          <div className="bg-surface-container-lowest rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30 overflow-hidden">
+            <div className="px-lg py-md border-b border-outline-variant/30 flex justify-between items-center">
               <h3 className="font-h3 text-h3">Últimos Registros</h3>
               <span className="px-sm py-xs bg-surface-container text-on-surface-variant font-label-sm rounded uppercase tracking-widest">En Vivo</span>
             </div>
-            <table className="w-full text-left">
+            <table className="w-full text-left border-collapse">
               <thead className="bg-surface-container text-on-surface-variant font-label-sm uppercase">
                 <tr>
                   {["Hora","Alumno","División","Estado"].map(h => <th key={h} className="px-lg py-md">{h}</th>)}
@@ -126,7 +126,7 @@ export default function AsistenciaPage() {
         {/* Side Panel 5/12 */}
         <div className="col-span-12 lg:col-span-5 flex flex-col gap-lg">
           {/* Last scanned */}
-          <div className="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-lg flex flex-col items-center text-center">
+          <div className="bg-surface-container-lowest rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30 p-lg flex flex-col items-center text-center">
             <div className="w-full flex justify-between items-center mb-lg">
               <span className="font-label-sm text-on-surface-variant uppercase tracking-widest">Último Escaneado</span>
               <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
@@ -178,12 +178,12 @@ export default function AsistenciaPage() {
           </div>
 
           {/* Stats */}
-          <div className="bg-surface-container-low rounded-xl border border-outline-variant p-lg grid grid-cols-2 gap-lg">
+          <div className="bg-surface-container-lowest rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30 p-lg grid grid-cols-2 gap-lg">
             <div>
               <h4 className="font-label-sm text-on-surface-variant uppercase mb-md">Total Presentes</h4>
               <div className="flex items-baseline gap-xs">
-                <span className="font-display text-h1 text-on-surface">{stats.presentes || 342}</span>
-                <span className="font-label-md text-on-surface-variant">/ {stats.total || 450}</span>
+                <span className="font-display text-h1 text-on-surface">{stats.presentes}</span>
+                <span className="font-label-md text-on-surface-variant">/ {stats.total}</span>
               </div>
               <div className="w-full bg-surface-container-highest h-1 rounded-full mt-sm overflow-hidden">
                 <div className="bg-primary h-full" style={{ width: `${pct}%` }}/>
@@ -192,10 +192,10 @@ export default function AsistenciaPage() {
             <div>
               <h4 className="font-label-sm text-on-surface-variant uppercase mb-md">Ausentes</h4>
               <div className="flex items-baseline gap-xs">
-                <span className="font-display text-h1 text-tertiary">{stats.ausentes || 108}</span>
+                <span className="font-display text-h1 text-tertiary">{stats.ausentes}</span>
                 <span className="font-label-md text-on-surface-variant">alumnos</span>
               </div>
-              <p className="text-[10px] text-tertiary font-bold mt-sm">+12% vs ayer</p>
+              <p className="text-[10px] text-on-surface-variant font-bold mt-sm">Sin datos de ayer</p>
             </div>
           </div>
         </div>

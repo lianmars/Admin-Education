@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ThemeToggle } from "../../components/ThemeToggle";
 
 interface UserInfo {
   name: string;
@@ -145,6 +146,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
             <div className="flex items-center gap-md">
               <div className="flex items-center gap-xs">
+                <ThemeToggle />
                 <button className="p-sm hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant">
                   <span className="material-symbols-outlined">notifications</span>
                 </button>

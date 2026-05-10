@@ -55,7 +55,7 @@ export default function AlumnosPage() {
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="flex items-center gap-sm bg-primary text-on-primary px-lg py-md rounded-xl font-label-md shadow-sm hover:bg-on-primary-fixed-variant transition-all"
+          className="flex items-center gap-sm bg-primary text-on-primary px-lg py-md rounded-xl font-label-md shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] hover:bg-on-primary-fixed-variant transition-all"
         >
           <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>person_add</span>
           Nuevo Alumno
@@ -83,10 +83,10 @@ export default function AlumnosPage() {
       </div>
 
       {/* Table */}
-      <div className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.05),_0_10px_15px_-5px_rgba(0,0,0,0.02)]">
+      <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)]">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
-            <thead className="bg-surface-container-low border-b border-outline-variant">
+            <thead className="bg-surface-container-low border-b border-outline-variant/30">
               <tr>
                 <th className="px-lg py-md font-label-sm text-on-surface-variant uppercase tracking-wider">Alumno</th>
                 <th className="px-lg py-md font-label-sm text-on-surface-variant uppercase tracking-wider">División</th>
@@ -152,14 +152,13 @@ export default function AlumnosPage() {
       </div>
 
       {/* Stats Footer */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md">
         {[
           { icon: "groups", color: "text-primary", bg: "bg-primary/10", label: "Total Alumnos", value: students.length },
           { icon: "check_circle", color: "text-secondary", bg: "bg-secondary/10", label: "Regulares", value: students.filter(s=>s.status==="REGULAR").length },
           { icon: "warning", color: "text-tertiary", bg: "bg-tertiary/10", label: "Irregulares", value: students.filter(s=>s.status!=="REGULAR").length },
-          { icon: "school", color: "text-primary", bg: "bg-primary/10", label: "Cursos Activos", value: 3 },
         ].map((s, i) => (
-          <div key={i} className="bg-surface-container p-lg rounded-xl border border-outline-variant shadow-sm flex items-center gap-md">
+          <div key={i} className="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant/30 shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] flex items-center gap-md">
             <div className={`w-12 h-12 ${s.bg} rounded-full flex items-center justify-center ${s.color}`}>
               <span className="material-symbols-outlined">{s.icon}</span>
             </div>
@@ -174,7 +173,7 @@ export default function AlumnosPage() {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant w-full max-w-md p-lg">
+          <div className="bg-surface-container-lowest rounded-xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_10px_10px_-5px_rgba(0,0,0,0.04)] border border-outline-variant/30 w-full max-w-md p-lg">
             <h3 className="font-h3 text-h3 text-on-surface mb-md">Agregar Alumno</h3>
             <form onSubmit={handleSubmit} className="space-y-sm">
               {[

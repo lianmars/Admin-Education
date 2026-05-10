@@ -1,8 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function EstadisticasPage() {
+  const pageRef = useRef<HTMLDivElement>(null);
+
+  const handleExportPDF = async () => {
+    if (!pageRef.current) return;
+    try {
+      const canvas = await html2canvas(pageRef.current, { scale: 2 });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("reporte-estadistico.pdf");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleAction = (msg: string) => alert(msg);
   return (
     <div className="space-y-xl">
       {/* Page Header */}
@@ -16,17 +36,18 @@ export default function EstadisticasPage() {
             <span className="material-symbols-outlined text-[18px]">calendar_today</span>
             <span>Últimos 30 días</span>
           </button>
-          <button className="flex items-center gap-sm px-lg py-sm bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 transition-all shadow-sm">
+          <button onClick={handleExportPDF} className="flex items-center gap-sm px-lg py-sm bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 transition-all shadow-sm">
             <span className="material-symbols-outlined text-[18px]">download</span>
             <span>Exportar Reporte</span>
           </button>
         </div>
       </div>
 
-      {/* Bento Grid: Institutional Health Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+      <div ref={pageRef} className="space-y-xl">
+        {/* Bento Grid: Institutional Health Metrics */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg">
         {/* Metric Card 1 */}
-        <div className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30">
+        <div className="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30">
           <div className="flex justify-between items-start mb-md">
             <div className="p-sm bg-primary-container/20 text-primary rounded-lg">
               <span className="material-symbols-outlined">trending_up</span>
@@ -34,45 +55,34 @@ export default function EstadisticasPage() {
             <span className="text-primary font-bold font-label-sm">+4.2%</span>
           </div>
           <h4 className="font-label-md text-on-surface-variant">Matrícula Total</h4>
-          <p className="font-display text-display text-on-surface mt-xs">2,840</p>
+          <p className="font-display text-display text-on-surface mt-xs">0</p>
           <p className="font-body-sm text-on-surface-variant mt-sm">Alumnos activos en el ciclo 2024</p>
         </div>
         {/* Metric Card 2 */}
-        <div className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30">
+        <div className="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30">
           <div className="flex justify-between items-start mb-md">
             <div className="p-sm bg-secondary-container/30 text-secondary rounded-lg">
               <span className="material-symbols-outlined">how_to_reg</span>
             </div>
-            <span className="text-primary font-bold font-label-sm">+0.8%</span>
+            <span className="text-on-surface-variant font-bold font-label-sm">Sin datos</span>
           </div>
           <h4 className="font-label-md text-on-surface-variant">Asistencia Global</h4>
-          <p className="font-display text-display text-on-surface mt-xs">94.8%</p>
+          <p className="font-display text-display text-on-surface mt-xs">0%</p>
           <p className="font-body-sm text-on-surface-variant mt-sm">Promedio diario institucional</p>
         </div>
         {/* Metric Card 3 */}
-        <div className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30">
+        <div className="bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30">
           <div className="flex justify-between items-start mb-md">
             <div className="p-sm bg-tertiary-fixed/30 text-tertiary rounded-lg">
               <span className="material-symbols-outlined">school</span>
             </div>
-            <span className="text-tertiary font-bold font-label-sm">-2.1%</span>
+            <span className="text-on-surface-variant font-bold font-label-sm">Sin datos</span>
           </div>
           <h4 className="font-label-md text-on-surface-variant">Promedio Académico</h4>
-          <p className="font-display text-display text-on-surface mt-xs">8.6</p>
+          <p className="font-display text-display text-on-surface mt-xs">0.0</p>
           <p className="font-body-sm text-on-surface-variant mt-sm">Calificación general (0-10)</p>
         </div>
-        {/* Metric Card 4 */}
-        <div className="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30">
-          <div className="flex justify-between items-start mb-md">
-            <div className="p-sm bg-surface-container-highest text-on-surface-variant rounded-lg">
-              <span className="material-symbols-outlined">payments</span>
-            </div>
-            <span className="text-primary font-bold font-label-sm">Estable</span>
-          </div>
-          <h4 className="font-label-md text-on-surface-variant">Salud Financiera</h4>
-          <p className="font-display text-display text-on-surface mt-xs">92%</p>
-          <p className="font-body-sm text-on-surface-variant mt-sm">Cobro de aranceles al día</p>
-        </div>
+
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-lg">
@@ -89,7 +99,7 @@ export default function EstadisticasPage() {
                 <span>2024</span>
               </div>
               <div className="flex items-center gap-xs">
-                <div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+                <div className="w-3 h-3 rounded-full bg-outline-variant"></div>
                 <span>2023</span>
               </div>
             </div>
@@ -97,12 +107,12 @@ export default function EstadisticasPage() {
           {/* Mock Chart Visualization */}
           <div className="h-64 flex items-end justify-between gap-sm pt-xl">
             {[
-              { label: "Ene", val1: "60%", val2: "75%" },
-              { label: "Feb", val1: "55%", val2: "80%" },
-              { label: "Mar", val1: "65%", val2: "85%" },
-              { label: "Abr", val1: "70%", val2: "90%" },
-              { label: "May", val1: "75%", val2: "95%" },
-              { label: "Jun", val1: "40%", val2: "50%" },
+              { label: "Ene", val1: "0%", val2: "0%" },
+              { label: "Feb", val1: "0%", val2: "0%" },
+              { label: "Mar", val1: "0%", val2: "0%" },
+              { label: "Abr", val1: "0%", val2: "0%" },
+              { label: "May", val1: "0%", val2: "0%" },
+              { label: "Jun", val1: "0%", val2: "0%" },
             ].map((d) => (
               <div key={d.label} className="flex-1 flex flex-col items-center group">
                 <div className="w-full flex justify-center items-end gap-1 h-full">
@@ -122,28 +132,28 @@ export default function EstadisticasPage() {
             <div>
               <div className="flex justify-between items-center mb-xs">
                 <span className="font-label-md text-on-surface">Primaria</span>
-                <span className="font-label-md text-primary">96%</span>
+                <span className="font-label-md text-primary">0%</span>
               </div>
               <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
-                <div className="bg-primary h-full rounded-full" style={{ width: "96%" }}></div>
+                <div className="bg-primary h-full rounded-full" style={{ width: "0%" }}></div>
               </div>
             </div>
             <div>
               <div className="flex justify-between items-center mb-xs">
                 <span className="font-label-md text-on-surface">Secundaria</span>
-                <span className="font-label-md text-primary">92%</span>
+                <span className="font-label-md text-primary">0%</span>
               </div>
               <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
-                <div className="bg-primary h-full rounded-full" style={{ width: "92%" }}></div>
+                <div className="bg-primary h-full rounded-full" style={{ width: "0%" }}></div>
               </div>
             </div>
             <div>
               <div className="flex justify-between items-center mb-xs">
                 <span className="font-label-md text-on-surface">Bachillerato</span>
-                <span className="font-label-md text-primary">89%</span>
+                <span className="font-label-md text-primary">0%</span>
               </div>
               <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
-                <div className="bg-primary h-full rounded-full" style={{ width: "89%" }}></div>
+                <div className="bg-primary h-full rounded-full" style={{ width: "0%" }}></div>
               </div>
             </div>
             <div className="pt-md">
@@ -163,7 +173,7 @@ export default function EstadisticasPage() {
             <h3 className="font-h3 text-h3 text-on-surface">Rendimiento del Cuerpo Docente</h3>
             <p className="font-body-sm text-on-surface-variant">Métricas basadas en cumplimiento de programa y evaluaciones de alumnos</p>
           </div>
-          <button className="text-primary font-label-md hover:underline">Ver reporte completo</button>
+          <button onClick={() => handleAction("Abriendo reporte completo...")} className="text-primary font-label-md hover:underline">Ver reporte completo</button>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
@@ -177,44 +187,11 @@ export default function EstadisticasPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant/30">
-              {[
-                { init: "RA", name: "Ricardo Aranda", sub: "Matemáticas Avanzadas", dep: "Ciencias Exactas", pct: "98%", star: 4.5, state: "Excelente", color: "bg-primary-container/20 text-primary" },
-                { init: "ML", name: "Mariana López", sub: "Literatura Universal", dep: "Humanidades", pct: "85%", star: 4, state: "Sobresaliente", color: "bg-secondary-container/20 text-secondary" },
-                { init: "JV", name: "Javier Vargas", sub: "Educación Física", dep: "Deportes", pct: "65%", star: 3, state: "Bajo Revisión", color: "bg-tertiary-fixed/30 text-tertiary" },
-              ].map((t) => (
-                <tr key={t.init} className="hover:bg-surface-container-low transition-colors group">
-                  <td className="px-xl py-md">
-                    <div className="flex items-center gap-md">
-                      <div className="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant font-bold">{t.init}</div>
-                      <div>
-                        <p className="font-body-md font-medium text-on-surface">{t.name}</p>
-                        <p className="font-body-sm text-on-surface-variant">{t.sub}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-xl py-md font-body-sm text-on-surface-variant">{t.dep}</td>
-                  <td className="px-xl py-md">
-                    <div className="flex items-center gap-sm">
-                      <div className="w-16 bg-surface-container h-1.5 rounded-full">
-                        <div className={`h-full rounded-full ${t.pct === "65%" ? "bg-tertiary" : "bg-primary"}`} style={{ width: t.pct }}></div>
-                      </div>
-                      <span className="font-label-sm">{t.pct}</span>
-                    </div>
-                  </td>
-                  <td className="px-xl py-md">
-                    <div className="flex text-primary">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <span key={i} className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: i + 1 <= t.star ? "'FILL' 1" : i < t.star ? "'FILL' 1" : "'FILL' 0" }}>
-                          {i + 1 <= t.star ? "star" : i < t.star ? "star_half" : "star"}
-                        </span>
-                      ))}
-                    </div>
-                  </td>
-                  <td className="px-xl py-md">
-                    <span className={`px-md py-1 ${t.color} rounded-full font-label-sm`}>{t.state}</span>
-                  </td>
-                </tr>
-              ))}
+              <tr>
+                <td colSpan={5} className="px-xl py-xl text-center text-on-surface-variant font-body-md">
+                  No hay datos registrados aún.
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -244,24 +221,17 @@ export default function EstadisticasPage() {
             <h3 className="font-h3 text-h3 mb-md">Alertas Institucionales</h3>
             <ul className="space-y-sm">
               <li className="flex items-start gap-sm">
-                <span className="material-symbols-outlined text-tertiary-fixed-dim mt-0.5 text-[20px]">warning</span>
-                <p className="font-body-sm">3 docentes con licencia médica prolongada.</p>
-              </li>
-              <li className="flex items-start gap-sm">
-                <span className="material-symbols-outlined text-primary-fixed-dim mt-0.5 text-[20px]">verified</span>
-                <p className="font-body-sm">Certificación ISO 9001 renovada con éxito.</p>
-              </li>
-              <li className="flex items-start gap-sm">
-                <span className="material-symbols-outlined text-secondary-fixed mt-0.5 text-[20px]">info</span>
-                <p className="font-body-sm">Mantenimiento de laboratorios programado para el sábado.</p>
+                <span className="material-symbols-outlined text-on-surface-variant mt-0.5 text-[20px]">info</span>
+                <p className="font-body-sm text-on-surface-variant">No hay alertas recientes en este momento.</p>
               </li>
             </ul>
           </div>
           <div className="hidden sm:flex w-32 h-32 rounded-xl bg-surface-variant/10 flex-col items-center justify-center border border-white/5">
-            <span className="text-h1 font-black">03</span>
+            <span className="text-h1 font-black opacity-30">0</span>
             <span className="font-label-sm opacity-60">Alertas</span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

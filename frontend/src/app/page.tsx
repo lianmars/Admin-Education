@@ -48,11 +48,12 @@ export default function LoginPage() {
         </div>
 
         {/* Login Card */}
-        <div className="bg-surface-container-lowest border border-outline-variant p-xl rounded-xl login-card-shadow">
+        <div className="bg-surface-container-lowest border border-outline-variant/30 p-xl rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)]">
           <form onSubmit={handleSubmit} className="space-y-lg">
 
             {error && (
-              <div className="bg-error-container text-on-error-container p-sm rounded-lg text-body-sm font-semibold">
+              <div className="bg-error-container text-on-error-container p-sm rounded-lg text-body-sm font-semibold flex items-center gap-xs">
+                <span className="material-symbols-outlined text-[18px]">error</span>
                 {error}
               </div>
             )}
@@ -63,11 +64,11 @@ export default function LoginPage() {
                 Correo Electrónico
               </label>
               <div className="relative">
-                <span className="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline" style={{ fontSize: "20px" }}>
+                <span className="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline-variant" style={{ fontSize: "20px" }}>
                   mail
                 </span>
                 <input
-                  className="w-full pl-xl pr-md py-md border border-outline-variant rounded-lg bg-surface text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant"
+                  className="w-full pl-xl pr-md py-md border border-outline-variant rounded-lg bg-surface-container-lowest text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant"
                   id="email"
                   name="email"
                   placeholder="usuario@institucion.edu"
@@ -90,11 +91,11 @@ export default function LoginPage() {
                 </a>
               </div>
               <div className="relative">
-                <span className="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline" style={{ fontSize: "20px" }}>
+                <span className="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline-variant" style={{ fontSize: "20px" }}>
                   lock
                 </span>
                 <input
-                  className="w-full pl-xl pr-md py-md border border-outline-variant rounded-lg bg-surface text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant"
+                  className="w-full pl-xl pr-md py-md border border-outline-variant rounded-lg bg-surface-container-lowest text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline-variant"
                   id="password"
                   name="password"
                   placeholder="••••••••"
@@ -121,8 +122,8 @@ export default function LoginPage() {
                     key={r.value}
                     className={`relative flex flex-col items-center gap-xs p-sm border rounded-lg cursor-pointer transition-all ${
                       role === r.value
-                        ? "border-primary bg-primary-fixed"
-                        : "border-outline-variant hover:bg-surface-container-low"
+                        ? "border-primary bg-primary-container/20 text-primary"
+                        : "border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-high"
                     }`}
                   >
                     <input
@@ -133,7 +134,7 @@ export default function LoginPage() {
                       checked={role === r.value}
                       onChange={() => setRole(r.value)}
                     />
-                    <span className="material-symbols-outlined text-on-surface-variant" style={{ fontSize: "20px" }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
                       {r.icon}
                     </span>
                     <span className="font-label-sm text-label-sm">{r.label}</span>
@@ -145,7 +146,7 @@ export default function LoginPage() {
             {/* Action Button */}
             <button
               disabled={loading}
-              className="w-full bg-primary-container text-on-primary-container font-h3 text-h3 py-md rounded-lg shadow-sm hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-sm disabled:opacity-50"
+              className="w-full bg-primary text-on-primary font-label-md py-md rounded-lg shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-sm disabled:opacity-50"
               type="submit"
             >
               {loading ? "Ingresando..." : "Ingresar"}

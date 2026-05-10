@@ -74,26 +74,7 @@ async function main() {
 
   console.log('✅ Cursos creados:', { curso4B: curso4B.id, curso5A: curso5A.id, curso3C: curso3C.id });
 
-  // ─── Alumnos de Ejemplo ────────────────────────────────────
-  const alumnosData = [
-    { firstName: 'Martín', lastName: 'Gómez', dni: '45123456', courseId: curso4B.id },
-    { firstName: 'Lucía', lastName: 'Fernández', dni: '45234567', courseId: curso4B.id },
-    { firstName: 'Santiago', lastName: 'López', dni: '45345678', courseId: curso5A.id },
-    { firstName: 'Valentina', lastName: 'Rodríguez', dni: '45456789', courseId: curso5A.id },
-    { firstName: 'Tomás', lastName: 'Martínez', dni: '45567890', courseId: curso3C.id },
-  ];
-
-  let alumnosCreados = 0;
-  for (const alumno of alumnosData) {
-    const existing = await prisma.student.findUnique({ where: { dni: alumno.dni } });
-    if (!existing) {
-      await prisma.student.create({ data: alumno });
-      alumnosCreados++;
-    }
-  }
-
-  console.log(`✅ ${alumnosCreados} alumnos de ejemplo creados.`);
-  console.log('\n🎉 Sembrado finalizado exitosamente.');
+  console.log('\n🎉 Sembrado finalizado exitosamente. La plataforma está limpia y lista para uso.');
   console.log('\n📋 Credenciales de acceso:');
   console.log('   Director:  director@edumanage.com  / 123456');
   console.log('   Docente:   docente@edumanage.com   / 123456');
