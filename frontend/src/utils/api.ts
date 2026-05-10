@@ -29,7 +29,7 @@ api.interceptors.response.use(
       if (typeof window !== 'undefined') {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.href = '/';
+        window.location.href = '/Admin-Education/';
       }
     }
     return Promise.reject(error);
