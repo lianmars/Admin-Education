@@ -1,151 +1,206 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { QRCodeSVG } from "qrcode.react";
-import api from "../../../utils/api";
-
-interface Student {
-  id: string;
-  firstName: string;
-  lastName: string;
-  dni: string;
-  course: {
-    name: string;
-    division: string;
-  };
-  qrCode: string;
-}
+import React from "react";
 
 export default function CredencialesPage() {
-  const [students, setStudents] = useState<Student[]>([]);
-  const [search, setSearch] = useState("");
-  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const { data } = await api.get('/students');
-        setStudents(data);
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchStudents();
-  }, []);
-
-  const handlePrint = () => {
-    window.print();
-  };
-
-  const filteredStudents = students.filter(s => 
-    `${s.firstName} ${s.lastName}`.toLowerCase().includes(search.toLowerCase()) || 
-    s.dni.includes(search)
-  );
-
   return (
     <div className="space-y-xl">
-      <div className="flex justify-between items-center print:hidden">
+      {/* Header Actions */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-md">
         <div>
-          <h2 className="font-h2 text-h2 text-on-surface">Generador de Credenciales</h2>
-          <p className="font-body-md text-on-surface-variant">Genera e imprime los códigos QR para el acceso de los alumnos.</p>
+          <nav className="flex items-center gap-xs text-on-surface-variant font-label-sm mb-xs">
+            <span className="hover:underline cursor-pointer">Alumnos</span>
+            <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+            <span className="text-primary">Credencial Digital</span>
+          </nav>
+          <h2 className="font-h1 text-h1 text-on-surface">Expediente del Alumno</h2>
         </div>
-        <button 
-          onClick={handlePrint}
-          disabled={!selectedStudent}
-          className="flex items-center gap-sm px-md py-sm bg-primary-container text-on-primary-container rounded-lg font-semibold hover:opacity-90 transition-all disabled:opacity-50"
-        >
-          <span className="material-symbols-outlined">print</span>
-          Imprimir Credencial
-        </button>
+        <div className="flex gap-sm">
+          <button className="flex items-center gap-sm px-md py-sm border border-outline-variant rounded-lg text-primary font-label-md hover:bg-surface-container-high transition-all active:scale-95">
+            <span className="material-symbols-outlined">print</span>
+            Imprimir
+          </button>
+          <button className="flex items-center gap-sm px-md py-sm bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 shadow-sm transition-all active:scale-95">
+            <span className="material-symbols-outlined">download</span>
+            Descargar Credencial
+          </button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-xl">
-        
-        {/* Selector Panel */}
-        <div className="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl print:hidden flex flex-col h-[600px]">
-          <h3 className="font-h3 text-h3 text-on-surface mb-md">Seleccionar Alumno</h3>
-          <div className="relative mb-md shrink-0">
-            <span className="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
-            <input 
-              type="text" 
-              placeholder="Buscar por nombre o DNI..." 
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-xl pr-md py-sm border border-outline-variant rounded bg-surface text-body-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-            />
-          </div>
-          
-          <div className="space-y-sm overflow-y-auto flex-1 pr-sm">
-            {loading ? (
-              <p className="text-on-surface-variant text-center py-md">Cargando alumnos...</p>
-            ) : filteredStudents.length === 0 ? (
-              <p className="text-on-surface-variant text-center py-md">No se encontraron alumnos.</p>
-            ) : (
-              filteredStudents.map(student => (
-                <div 
-                  key={student.id}
-                  onClick={() => setSelectedStudent(student)}
-                  className={`p-sm border rounded-lg cursor-pointer flex justify-between items-center transition-colors ${selectedStudent?.id === student.id ? 'border-primary bg-primary-fixed bg-opacity-20' : 'border-outline-variant hover:bg-surface-container'}`}
-                >
-                  <div>
-                    <p className="font-label-md text-on-surface">{student.lastName}, {student.firstName}</p>
-                    <p className="font-label-sm text-on-surface-variant">{student.course?.name} {student.course?.division}</p>
+      {/* Bento Grid Layout */}
+      <div className="grid grid-cols-12 gap-lg">
+        {/* ID CARD PREVIEW (Main Feature) */}
+        <div className="col-span-12 lg:col-span-5 flex justify-center items-start">
+          <div className="w-full max-w-[400px] bg-white rounded-xl overflow-hidden id-card-shadow border border-outline-variant relative">
+            {/* Card Header Pattern */}
+            <div className="h-24 bg-primary relative overflow-hidden">
+              <div
+                className="absolute inset-0 opacity-10"
+                style={{
+                  backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
+                  backgroundSize: "20px 20px",
+                }}
+              />
+              <div className="absolute top-md left-lg">
+                <div className="flex items-center gap-sm">
+                  <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
+                    <span className="material-symbols-outlined text-primary text-[20px]">school</span>
                   </div>
-                  {selectedStudent?.id === student.id && (
-                    <span className="material-symbols-outlined text-primary">check_circle</span>
-                  )}
+                  <span className="text-white font-bold tracking-tight text-h3">EduManage</span>
                 </div>
-              ))
-            )}
-          </div>
-        </div>
-
-        {/* Credencial Preview */}
-        <div className="flex items-center justify-center bg-surface-container border border-outline-variant rounded-xl p-xl print:border-0 print:bg-white print:p-0">
-          
-          {selectedStudent ? (
-            <div className="w-[320px] h-[480px] bg-white rounded-2xl shadow-md border border-outline-variant flex flex-col overflow-hidden print:shadow-none print:border-2">
-              <div className="h-[120px] bg-primary flex flex-col items-center justify-center text-white p-md text-center">
-                <div className="h-12 w-12 bg-white rounded flex items-center justify-center text-primary font-bold text-xl mb-xs shadow-sm">
-                  EM
-                </div>
-                <h3 className="font-h3 text-lg">EduManage</h3>
-                <p className="text-xs opacity-90">Acceso Institucional</p>
               </div>
-              
-              <div className="flex-1 flex flex-col items-center justify-center p-xl">
-                <div className="mb-lg p-sm border-4 border-primary-fixed rounded-xl bg-white shadow-sm">
-                  <QRCodeSVG 
-                    value={selectedStudent.qrCode} 
-                    size={160}
-                    level="H"
-                    includeMargin={false}
-                    fgColor="#002113"
-                  />
+              <div className="absolute top-md right-lg">
+                <span className="bg-secondary-fixed text-on-secondary-fixed text-[10px] px-sm py-[2px] rounded-full font-bold uppercase tracking-wider">
+                  Ciclo 2024
+                </span>
+              </div>
+            </div>
+
+            {/* Student Info */}
+            <div className="flex flex-col items-center -mt-12 px-lg pb-lg">
+              <div className="relative">
+                <div className="w-32 h-32 rounded-xl border-4 border-white shadow-md bg-surface-container-highest flex items-center justify-center overflow-hidden">
+                  <span className="material-symbols-outlined text-[64px] text-on-surface-variant">person</span>
                 </div>
-                <h2 className="font-display text-xl text-on-surface text-center mb-xs">
-                  {selectedStudent.firstName} {selectedStudent.lastName}
-                </h2>
-                <p className="font-label-md text-on-surface-variant bg-surface-container px-md py-xs rounded-full">
-                  {selectedStudent.course?.name} {selectedStudent.course?.division}
+                <div className="absolute -bottom-2 -right-2 bg-primary text-white p-xs rounded-full border-2 border-white">
+                  <span className="material-symbols-outlined text-[16px]">verified</span>
+                </div>
+              </div>
+
+              <div className="text-center mt-md mb-lg">
+                <h3 className="font-h2 text-h2 text-on-surface">Mateo Sebastian Ortiz</h3>
+                <p className="font-label-md text-primary uppercase tracking-widest font-bold">
+                  5º Grado - División B
                 </p>
               </div>
 
-              <div className="h-10 bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
-                <p className="text-[10px] uppercase font-bold tracking-widest">Credencial Personal Intransferible</p>
+              {/* QR Code Section */}
+              <div className="w-full bg-surface-container-low p-lg rounded-xl flex flex-col items-center justify-center border border-outline-variant">
+                <div className="bg-white p-sm rounded-lg shadow-sm border border-outline-variant mb-sm w-32 h-32 flex items-center justify-center">
+                  <span className="material-symbols-outlined text-[80px] text-on-surface-variant">qr_code_2</span>
+                </div>
+                <p className="font-label-sm text-on-surface-variant font-mono">ID: STU-2024-091-B</p>
+              </div>
+
+              {/* Detail List */}
+              <div className="w-full mt-lg grid grid-cols-2 gap-md border-t border-outline-variant pt-lg">
+                <div>
+                  <p className="font-label-sm text-on-surface-variant">Fecha de Nacimiento</p>
+                  <p className="font-body-md text-on-surface font-semibold">12 May 2011</p>
+                </div>
+                <div>
+                  <p className="font-label-sm text-on-surface-variant">Tipo de Sangre</p>
+                  <p className="font-body-md text-on-surface font-semibold">O+ Positivo</p>
+                </div>
+                <div className="col-span-2">
+                  <p className="font-label-sm text-on-surface-variant">Contacto de Emergencia</p>
+                  <p className="font-body-md text-on-surface font-semibold">+54 11 4567-8901</p>
+                </div>
               </div>
             </div>
-          ) : (
-            <p className="text-on-surface-variant font-body-md">Selecciona un alumno para generar su credencial.</p>
-          )}
 
+            {/* Footer */}
+            <div className="bg-surface-container-highest px-lg py-sm text-center">
+              <p className="text-[10px] text-outline uppercase font-bold tracking-tighter italic">
+                Válido exclusivamente para el periodo académico vigente
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ASYMMETRIC DETAILS PANEL */}
+        <div className="col-span-12 lg:col-span-7 space-y-lg">
+          {/* Quick Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-md">
+            <div className="bg-white p-md rounded-xl id-card-shadow border-l-4 border-primary">
+              <p className="font-label-sm text-on-surface-variant">Asistencia Global</p>
+              <p className="font-h2 text-h2 text-primary">94%</p>
+            </div>
+            <div className="bg-white p-md rounded-xl id-card-shadow border-l-4 border-secondary-container">
+              <p className="font-label-sm text-on-surface-variant">Promedio Gral</p>
+              <p className="font-h2 text-h2 text-secondary">8.7</p>
+            </div>
+            <div className="bg-white p-md rounded-xl id-card-shadow border-l-4 border-tertiary-container">
+              <p className="font-label-sm text-on-surface-variant">Conducta</p>
+              <p className="font-h2 text-h2 text-tertiary">A+</p>
+            </div>
+          </div>
+
+          {/* Academic Record */}
+          <div className="bg-white p-lg rounded-xl id-card-shadow border border-outline-variant">
+            <div className="flex justify-between items-center mb-md">
+              <h4 className="font-h3 text-h3 text-on-surface">Información de Inscripción</h4>
+              <span className="bg-primary-container text-on-primary-container px-sm py-[2px] rounded text-[12px] font-bold">
+                ACTIVO
+              </span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-xl">
+              <div className="space-y-md">
+                <div>
+                  <label className="block font-label-sm text-on-surface-variant">Institución</label>
+                  <p className="font-body-md text-on-surface">Instituto Superior de Educación EduManage</p>
+                </div>
+                <div>
+                  <label className="block font-label-sm text-on-surface-variant">Sede Académica</label>
+                  <p className="font-body-md text-on-surface">Campus Central - Buenos Aires</p>
+                </div>
+                <div>
+                  <label className="block font-label-sm text-on-surface-variant">Tutor Legal</label>
+                  <p className="font-body-md text-on-surface">Elena Maria Rodriguez</p>
+                </div>
+              </div>
+              <div className="space-y-md">
+                <div>
+                  <label className="block font-label-sm text-on-surface-variant">Fecha de Ingreso</label>
+                  <p className="font-body-md text-on-surface">01 de Marzo, 2021</p>
+                </div>
+                <div>
+                  <label className="block font-label-sm text-on-surface-variant">Plan de Estudios</label>
+                  <p className="font-body-md text-on-surface">Bachiller con Orientación Técnica</p>
+                </div>
+                <div>
+                  <label className="block font-label-sm text-on-surface-variant">Correo Institucional</label>
+                  <p className="font-body-md text-primary underline">m.ortiz@edumanage.edu.ar</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Notification Banner */}
+          <div className="bg-primary-container/10 border border-primary/20 p-md rounded-xl flex items-start gap-md">
+            <span className="material-symbols-outlined text-primary">info</span>
+            <div>
+              <p className="font-label-md text-primary font-bold">Aviso de Renovación</p>
+              <p className="font-body-sm text-on-surface-variant">
+                Esta credencial digital se actualiza automáticamente al inicio de cada trimestre. No requiere trámites
+                presenciales.
+              </p>
+            </div>
+          </div>
+
+          {/* Accessibility Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-md">
+            <button className="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-outline-variant hover:bg-surface-container-high transition-colors text-left group">
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-sm">
+                <span className="material-symbols-outlined">qr_code_scanner</span>
+              </div>
+              <div>
+                <p className="font-label-md text-on-surface font-bold">Validar QR</p>
+                <p className="font-label-sm text-on-surface-variant">Verificar autenticidad</p>
+              </div>
+            </button>
+            <button className="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-outline-variant hover:bg-surface-container-high transition-colors text-left group">
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-sm">
+                <span className="material-symbols-outlined">share</span>
+              </div>
+              <div>
+                <p className="font-label-md text-on-surface font-bold">Compartir</p>
+                <p className="font-label-sm text-on-surface-variant">Enviar vía email/WhatsApp</p>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
-      
-
     </div>
   );
 }

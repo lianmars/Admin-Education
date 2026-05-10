@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} antialiased`}>
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD@100..700,0..1,-50..200&icon_names=grid_view,school,qr_code_scanner,summarize,settings,logout,notifications,mail,lock,account_balance,badge,login,verified_user" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD@100..700,0..1,-50..200&display=block" rel="stylesheet" />
       </head>
       <body className="min-h-screen flex flex-col font-sans">
         {children}

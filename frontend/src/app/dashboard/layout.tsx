@@ -11,26 +11,18 @@ interface UserInfo {
 }
 
 const menuItems = [
-  { label: "Dashboard", href: "/dashboard", icon: "grid_view" },
-  { label: "Alumnos", href: "/dashboard/alumnos", icon: "school" },
-  { label: "Credenciales", href: "/dashboard/credenciales", icon: "qr_code_2" },
-  { label: "Asistencia QR", href: "/dashboard/asistencia", icon: "qr_code_scanner" },
-  { label: "Informes", href: "/dashboard/informes", icon: "summarize" },
+  { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
+  { label: "Alumnos", href: "/dashboard/alumnos", icon: "group" },
+  { label: "Asistencias", href: "/dashboard/asistencia", icon: "fact_check" },
+  { label: "Calificaciones", href: "/dashboard/informes", icon: "star" },
+  { label: "Estadísticas", href: "/dashboard/estadisticas", icon: "bar_chart" },
+  { label: "Credenciales", href: "/dashboard/credenciales", icon: "badge" },
   { label: "Configuración", href: "/dashboard/config", icon: "settings" },
 ];
 
-const pageTitles: Record<string, string> = {
-  "/dashboard": "Panel de Control",
-  "/dashboard/alumnos": "Gestión de Alumnos",
-  "/dashboard/credenciales": "Credenciales QR",
-  "/dashboard/asistencia": "Control de Asistencia",
-  "/dashboard/informes": "Informes Académicos",
-  "/dashboard/config": "Configuración",
-};
-
 const roleLabels: Record<string, string> = {
   ADMIN: "Administrador",
-  DIRECTOR: "Director",
+  DIRECTOR: "Director Académico",
   DOCENTE: "Docente",
   PRECEPTOR: "Preceptor",
 };
@@ -44,11 +36,7 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState<UserInfo | null>(null);
@@ -56,14 +44,9 @@ export default function DashboardLayout({
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/");
-      return;
-    }
+    if (!token) { router.push("/"); return; }
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    if (storedUser) setUser(JSON.parse(storedUser));
   }, [router]);
 
   const handleLogout = () => {
@@ -72,44 +55,23 @@ export default function DashboardLayout({
     router.push("/");
   };
 
-  const pageTitle = pageTitles[pathname] ?? "EduManage";
-
   return (
-    <div className="flex h-screen bg-surface">
+    <div className="flex min-h-screen text-on-surface bg-surface">
       {/* Mobile overlay */}
       {sidebarOpen && (
-        <div
-          className="fixed inset-0 z-20 bg-black/40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
+        <div className="fixed inset-0 z-20 bg-black/40 lg:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
-      {/* Sidebar */}
-      <aside
-        className={`fixed lg:static z-30 h-full w-[260px] bg-surface-container-lowest border-r border-outline-variant flex flex-col transition-transform duration-300 ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
-      >
+      {/* ── SideNavBar ── */}
+      <aside className={`w-sidebar_width h-screen sticky top-0 left-0 bg-surface-container-low border-r border-outline-variant flex flex-col shadow-sm z-50 transition-transform duration-300 fixed lg:static ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
         {/* Brand */}
-        <div className="p-xl border-b border-outline-variant flex items-center gap-md">
-          <div className="h-10 w-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-lg shrink-0">
-            EM
-          </div>
-          <div>
-            <span className="font-semibold text-base text-primary leading-tight block">
-              EduManage
-            </span>
-            <span className="text-xs text-on-surface-variant">
-              Sistema Educativo
-            </span>
-          </div>
+        <div className="px-lg py-xl">
+          <h1 className="font-h2 text-h2 font-bold text-primary">EduManage</h1>
+          <p className="font-body-sm text-body-sm text-on-surface-variant">SaaS Educativo</p>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-md flex flex-col gap-xs overflow-y-auto">
-          <p className="text-xs font-semibold text-outline uppercase tracking-wider px-md py-sm">
-            Menú Principal
-          </p>
+        <nav className="flex-1 px-md space-y-xs overflow-y-auto">
           {menuItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -117,101 +79,100 @@ export default function DashboardLayout({
                 key={item.href}
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-md px-md py-sm rounded-lg transition-all text-sm font-medium ${
+                className={`flex items-center gap-md px-md py-sm rounded-lg transition-colors duration-200 ${
                   isActive
-                    ? "bg-primary-container text-on-primary-container font-semibold shadow-sm"
-                    : "text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+                    ? "text-primary font-bold border-r-4 border-primary bg-surface-container-high"
+                    : "text-on-surface-variant hover:text-primary hover:bg-surface-container-high"
                 }`}
               >
-                <span
-                  className="material-symbols-outlined"
-                  style={{ fontSize: "20px" }}
-                >
+                <span className="material-symbols-outlined" style={{ fontSize: "22px", fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0" }}>
                   {item.icon}
                 </span>
-                {item.label}
-                {isActive && (
-                  <span
-                    className="ml-auto h-1.5 w-1.5 rounded-full bg-primary"
-                  />
-                )}
+                <span className="font-body-md">{item.label}</span>
               </Link>
             );
           })}
         </nav>
 
-        {/* User & Logout */}
-        <div className="p-md border-t border-outline-variant space-y-sm">
+        {/* Bottom: user + logout */}
+        <div className="px-md py-lg border-t border-outline-variant space-y-xs mt-auto">
           {user && (
-            <div className="flex items-center gap-sm px-md py-sm rounded-lg bg-surface-container-low">
-              <div className="h-8 w-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-xs shrink-0">
+            <div className="flex items-center gap-sm px-md py-sm rounded-lg bg-surface-container mb-xs">
+              <div className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shrink-0">
                 {getInitials(user.name)}
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-on-surface truncate">
-                  {user.name}
-                </p>
-                <p className="text-xs text-on-surface-variant">
-                  {roleLabels[user.role] ?? user.role}
-                </p>
+                <p className="font-label-md text-on-surface truncate">{user.name}</p>
+                <p className="text-[10px] text-on-surface-variant uppercase tracking-wider">{roleLabels[user.role] ?? user.role}</p>
               </div>
             </div>
           )}
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-md px-md py-sm rounded-lg transition-all text-sm font-medium text-error hover:bg-error-container"
+          <a
+            href="#"
+            onClick={(e) => { e.preventDefault(); handleLogout(); }}
+            className="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200"
           >
-            <span
-              className="material-symbols-outlined"
-              style={{ fontSize: "20px" }}
-            >
-              logout
-            </span>
-            Cerrar Sesión
-          </button>
+            <span className="material-symbols-outlined" style={{ fontSize: "22px" }}>logout</span>
+            <span className="font-body-md">Cerrar Sesión</span>
+          </a>
         </div>
       </aside>
 
-      {/* Main Content Area */}
-      <main className="flex-1 flex flex-col h-full overflow-hidden min-w-0">
-        {/* Header */}
-        <header className="h-[72px] bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between px-xl shrink-0">
-          <div className="flex items-center gap-md">
-            {/* Mobile hamburger */}
-            <button
-              className="h-10 w-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-outline-variant transition-all lg:hidden"
-              onClick={() => setSidebarOpen(true)}
-              aria-label="Abrir menú"
-            >
-              <span className="material-symbols-outlined">menu</span>
-            </button>
-            <h2 className="text-lg font-semibold text-on-surface">{pageTitle}</h2>
-          </div>
-          <div className="flex items-center gap-md">
-            <button className="h-10 w-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:bg-outline-variant transition-all">
-              <span className="material-symbols-outlined">notifications</span>
-            </button>
-            {user && (
-              <div className="flex items-center gap-sm pl-md border-l border-outline-variant">
-                <div className="text-right hidden md:block">
-                  <p className="text-sm font-semibold text-on-surface leading-tight">
-                    {user.name}
-                  </p>
-                  <p className="text-xs text-on-surface-variant leading-tight">
-                    {roleLabels[user.role] ?? user.role}
-                  </p>
-                </div>
-                <div className="h-10 w-10 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-sm">
-                  {getInitials(user.name)}
-                </div>
+      {/* ── Main Canvas ── */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* TopAppBar */}
+        <header className="sticky top-0 z-40 w-full bg-surface border-b border-outline-variant">
+          <div className="flex justify-between items-center px-lg py-sm max-w-max_content_width mx-auto w-full">
+            <div className="flex items-center gap-md flex-1">
+              {/* Mobile hamburger */}
+              <button
+                className="p-sm rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all lg:hidden"
+                onClick={() => setSidebarOpen(true)}
+                aria-label="Abrir menú"
+              >
+                <span className="material-symbols-outlined">menu</span>
+              </button>
+              {/* Search bar */}
+              <div className="relative w-full max-w-md hidden md:block">
+                <span className="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input
+                  className="w-full bg-surface-container-low border border-outline-variant rounded-full py-sm pl-xl pr-md focus:outline-none focus:ring-1 focus:ring-primary font-body-sm text-on-surface"
+                  placeholder="Buscar alumnos, clases o reportes..."
+                  type="text"
+                />
               </div>
-            )}
+            </div>
+
+            <div className="flex items-center gap-md">
+              <div className="flex items-center gap-xs">
+                <button className="p-sm hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant">
+                  <span className="material-symbols-outlined">notifications</span>
+                </button>
+                <button className="p-sm hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant">
+                  <span className="material-symbols-outlined">apps</span>
+                </button>
+              </div>
+              <div className="h-8 w-px bg-outline-variant" />
+              {user && (
+                <div className="flex items-center gap-sm pl-sm">
+                  <div className="text-right hidden md:block">
+                    <p className="font-label-md text-on-surface leading-tight">{roleLabels[user.role] ?? user.role}</p>
+                    <p className="text-[10px] text-on-surface-variant uppercase tracking-wider">Campus Principal</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm border border-outline-variant">
+                    {getInitials(user.name)}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </header>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-auto p-xl">{children}</div>
-      </main>
+        <main className="flex-1 overflow-y-auto px-lg py-xl max-w-max_content_width mx-auto w-full">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

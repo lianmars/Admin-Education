@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduManage | Executive Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#68dba9",
+                      "secondary-fixed": "#85f8c4",
+                      "error": "#ba1a1a",
+                      "tertiary-container": "#fc7c78",
+                      "primary": "#006c49",
+                      "on-secondary-fixed": "#002114",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#00422b",
+                      "on-primary-fixed": "#002113",
+                      "on-background": "#161d19",
+                      "surface-variant": "#dde4dd",
+                      "on-surface-variant": "#3c4a42",
+                      "on-surface": "#161d19",
+                      "tertiary-fixed": "#ffdad7",
+                      "primary-fixed-dim": "#4edea3",
+                      "secondary-container": "#82f5c1",
+                      "tertiary": "#a43a3a",
+                      "surface": "#f4fbf4",
+                      "primary-fixed": "#6ffbbe",
+                      "surface-container-low": "#eef6ee",
+                      "on-error": "#ffffff",
+                      "surface-container": "#e8f0e9",
+                      "primary-container": "#10b981",
+                      "outline": "#6c7a71",
+                      "on-tertiary-container": "#711419",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#006c49",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#006c4a",
+                      "on-primary-fixed-variant": "#005236",
+                      "on-secondary-container": "#00714e",
+                      "inverse-surface": "#2b322d",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#842225",
+                      "surface-bright": "#f4fbf4",
+                      "on-secondary-fixed-variant": "#005137",
+                      "surface-container-high": "#e3eae3",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#dde4dd",
+                      "inverse-on-surface": "#ebf3eb",
+                      "background": "#f4fbf4",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "on-tertiary-fixed": "#410005",
+                      "inverse-primary": "#4edea3",
+                      "outline-variant": "#bbcabf",
+                      "surface-dim": "#d4dcd5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xl": "32px",
+                      "lg": "24px",
+                      "sidebar_width": "260px",
+                      "xs": "4px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "base": "4px",
+                      "max_content_width": "1280px"
+              },
+              "fontFamily": {
+                      "h3": ["Inter"],
+                      "h2": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "display": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "h1": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "h3": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "h2": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "h1": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<div class="flex min-h-screen">
+<!-- Predicted Component: SideNavBar -->
+<aside class="w-sidebar_width h-screen sticky top-0 left-0 flex flex-col bg-surface-container-low border-r border-outline-variant transition-all">
+<div class="p-lg">
+<h1 class="font-h2 text-h2 font-bold text-primary">EduManage</h1>
+<p class="font-body-sm text-on-surface-variant">SaaS Educativo</p>
+</div>
+<nav class="flex-1 px-md mt-sm">
+<ul class="space-y-xs">
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Alumnos</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span>Asistencias</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+<span>Calificaciones</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-primary font-bold border-r-4 border-primary bg-surface-container-high font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart" style="font-variation-settings: 'FILL' 1;">bar_chart</span>
+<span>Estadísticas</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Configuración</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="p-md border-t border-outline-variant">
+<ul class="space-y-xs">
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Ayuda</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors font-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Cerrar Sesión</span>
+</a>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- Predicted Component: TopNavBar -->
+<header class="sticky top-0 z-40 bg-surface border-b border-outline-variant h-16 flex items-center">
+<div class="flex justify-between items-center px-lg w-full max-w-max_content_width mx-auto">
+<div class="flex items-center gap-lg flex-1">
+<div class="relative w-full max-w-sm">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-xs pl-xl pr-md text-body-sm focus:ring-2 focus:ring-primary transition-all" placeholder="Buscar métricas, reportes..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="apps">apps</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Avatar del Usuario" data-alt="A professional headshot of a middle-aged academic director with a confident smile. He is wearing a sharp navy blue suit and glasses, set against a blurred modern architectural office background with soft daylight. The aesthetic is professional, clean, and prestigious, aligning with an elite educational institution's visual identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7A6svQn3EzM3k09PW0i-BLIZy6R24TgEOmWyWnPMO22nlDXQgorKCAueBWbHpnRWp3wJZvEPwcQfKEk-frLUrgYJcFxJZxZV6FMoIQfhLe-0PQenjyq6_tPTAYRkkeCDxsV2_WqBbrsJBTAn3Fyd2nJ59zrUzL116_1mD_4AGVgMiJRWRjlkDgUc01u_9eI67YgX5Ttb8gw19A-Py2ChN5CKuTNGr_qRtJdcoxzOTFZgdCu0gvW0cNkoCIWy06rkm_GqUhR-a_w"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-xl max-w-max_content_width mx-auto w-full space-y-xl">
+<!-- Page Header -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-display text-display text-on-surface">Panel de Control Estadístico</h2>
+<p class="font-body-lg text-on-surface-variant mt-xs">Visualización de salud institucional y rendimiento académico.</p>
+</div>
+<div class="flex gap-md">
+<button class="flex items-center gap-sm px-lg py-sm bg-surface-container-high text-on-surface rounded-lg font-label-md hover:bg-outline-variant transition-all">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>Últimos 30 días</span>
+</button>
+<button class="flex items-center gap-sm px-lg py-sm bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Exportar Reporte</span>
+</button>
+</div>
+</div>
+<!-- Bento Grid: Institutional Health Metrics -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Metric Card 1 -->
+<div class="col-span-12 md:col-span-3 bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-primary-container/20 text-primary rounded-lg">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<span class="text-primary font-bold font-label-sm">+4.2%</span>
+</div>
+<h4 class="font-label-md text-on-surface-variant">Matrícula Total</h4>
+<p class="font-h1 text-h1 text-on-surface mt-xs">2,840</p>
+<p class="font-body-sm text-on-surface-variant mt-sm">Alumnos activos en el ciclo 2024</p>
+</div>
+<!-- Metric Card 2 -->
+<div class="col-span-12 md:col-span-3 bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-secondary-container/30 text-secondary rounded-lg">
+<span class="material-symbols-outlined">how_to_reg</span>
+</div>
+<span class="text-primary font-bold font-label-sm">+0.8%</span>
+</div>
+<h4 class="font-label-md text-on-surface-variant">Asistencia Global</h4>
+<p class="font-h1 text-h1 text-on-surface mt-xs">94.8%</p>
+<p class="font-body-sm text-on-surface-variant mt-sm">Promedio diario institucional</p>
+</div>
+<!-- Metric Card 3 -->
+<div class="col-span-12 md:col-span-3 bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-tertiary-fixed/30 text-tertiary rounded-lg">
+<span class="material-symbols-outlined">school</span>
+</div>
+<span class="text-tertiary font-bold font-label-sm">-2.1%</span>
+</div>
+<h4 class="font-label-md text-on-surface-variant">Promedio Académico</h4>
+<p class="font-h1 text-h1 text-on-surface mt-xs">8.6</p>
+<p class="font-body-sm text-on-surface-variant mt-sm">Calificación general (0-10)</p>
+</div>
+<!-- Metric Card 4 -->
+<div class="col-span-12 md:col-span-3 bg-surface-container-lowest p-lg rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container-highest text-on-surface-variant rounded-lg">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="text-primary font-bold font-label-sm">Estable</span>
+</div>
+<h4 class="font-label-md text-on-surface-variant">Salud Financiera</h4>
+<p class="font-h1 text-h1 text-on-surface mt-xs">92%</p>
+<p class="font-body-sm text-on-surface-variant mt-sm">Cobro de aranceles al día</p>
+</div>
+<!-- Enrollment Trends Chart Area -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-lowest p-xl rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30">
+<div class="flex justify-between items-center mb-xl">
+<div>
+<h3 class="font-h3 text-h3 text-on-surface">Tendencias de Inscripción</h3>
+<p class="font-body-sm text-on-surface-variant">Comparativa semestral 2023 vs 2024</p>
+</div>
+<div class="flex gap-md items-center font-label-sm">
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span>2024</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+<span>2023</span>
+</div>
+</div>
+</div>
+<!-- Mock Chart Visualization -->
+<div class="h-64 flex items-end justify-between gap-sm pt-xl">
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex justify-center items-end gap-1 h-full">
+<div class="w-1/3 bg-outline-variant rounded-t-sm" style="height: 60%"></div>
+<div class="w-1/3 bg-primary rounded-t-sm" style="height: 75%"></div>
+</div>
+<span class="mt-sm font-label-sm text-on-surface-variant">Ene</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex justify-center items-end gap-1 h-full">
+<div class="w-1/3 bg-outline-variant rounded-t-sm" style="height: 55%"></div>
+<div class="w-1/3 bg-primary rounded-t-sm" style="height: 80%"></div>
+</div>
+<span class="mt-sm font-label-sm text-on-surface-variant">Feb</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex justify-center items-end gap-1 h-full">
+<div class="w-1/3 bg-outline-variant rounded-t-sm" style="height: 65%"></div>
+<div class="w-1/3 bg-primary rounded-t-sm" style="height: 85%"></div>
+</div>
+<span class="mt-sm font-label-sm text-on-surface-variant">Mar</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex justify-center items-end gap-1 h-full">
+<div class="w-1/3 bg-outline-variant rounded-t-sm" style="height: 70%"></div>
+<div class="w-1/3 bg-primary rounded-t-sm" style="height: 90%"></div>
+</div>
+<span class="mt-sm font-label-sm text-on-surface-variant">Abr</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex justify-center items-end gap-1 h-full">
+<div class="w-1/3 bg-outline-variant rounded-t-sm" style="height: 75%"></div>
+<div class="w-1/3 bg-primary rounded-t-sm" style="height: 95%"></div>
+</div>
+<span class="mt-sm font-label-sm text-on-surface-variant">May</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex justify-center items-end gap-1 h-full">
+<div class="w-1/3 bg-outline-variant rounded-t-sm" style="height: 40%"></div>
+<div class="w-1/3 bg-primary rounded-t-sm" style="height: 50%"></div>
+</div>
+<span class="mt-sm font-label-sm text-on-surface-variant">Jun</span>
+</div>
+</div>
+</div>
+<!-- Attendance per Division -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest p-xl rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30">
+<h3 class="font-h3 text-h3 text-on-surface mb-xl">Asistencia por División</h3>
+<div class="space-y-xl">
+<div>
+<div class="flex justify-between items-center mb-xs">
+<span class="font-label-md text-on-surface">Primaria</span>
+<span class="font-label-md text-primary">96%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 96%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-xs">
+<span class="font-label-md text-on-surface">Secundaria</span>
+<span class="font-label-md text-primary">92%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-xs">
+<span class="font-label-md text-on-surface">Bachillerato</span>
+<span class="font-label-md text-primary">89%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 89%"></div>
+</div>
+</div>
+<div class="pt-md">
+<div class="p-md bg-surface-container-low rounded-lg border border-outline-variant/20 flex gap-md items-center">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+<p class="font-body-sm text-on-surface-variant">El ausentismo en Bachillerato ha subido 2% este mes. Se recomienda revisión de horarios.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Teacher Performance Overview -->
+<div class="col-span-12 bg-surface-container-lowest rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.05),0_10px_15px_-5px_rgba(0,0,0,0.02)] border border-outline-variant/30 overflow-hidden">
+<div class="p-xl border-b border-outline-variant/30 flex justify-between items-center">
+<div>
+<h3 class="font-h3 text-h3 text-on-surface">Rendimiento del Cuerpo Docente</h3>
+<p class="font-body-sm text-on-surface-variant">Métricas basadas en cumplimiento de programa y evaluaciones de alumnos</p>
+</div>
+<button class="text-primary font-label-md hover:underline">Ver reporte completo</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-xl py-md font-label-sm text-on-surface-variant uppercase tracking-wider">Docente</th>
+<th class="px-xl py-md font-label-sm text-on-surface-variant uppercase tracking-wider">Departamento</th>
+<th class="px-xl py-md font-label-sm text-on-surface-variant uppercase tracking-wider">Cumplimiento</th>
+<th class="px-xl py-md font-label-sm text-on-surface-variant uppercase tracking-wider">Eval. Promedio</th>
+<th class="px-xl py-md font-label-sm text-on-surface-variant uppercase tracking-wider">Estado</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-xl py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant font-bold">RA</div>
+<div>
+<p class="font-body-md font-medium text-on-surface">Ricardo Aranda</p>
+<p class="font-body-sm text-on-surface-variant">Matemáticas Avanzadas</p>
+</div>
+</div>
+</td>
+<td class="px-xl py-md font-body-sm text-on-surface-variant">Ciencias Exactas</td>
+<td class="px-xl py-md">
+<div class="flex items-center gap-sm">
+<div class="w-16 bg-surface-container h-1.5 rounded-full">
+<div class="bg-primary h-full rounded-full" style="width: 98%"></div>
+</div>
+<span class="font-label-sm">98%</span>
+</div>
+</td>
+<td class="px-xl py-md">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+</td>
+<td class="px-xl py-md">
+<span class="px-md py-1 bg-primary-container/20 text-primary rounded-full font-label-sm">Excelente</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-xl py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant font-bold">ML</div>
+<div>
+<p class="font-body-md font-medium text-on-surface">Mariana López</p>
+<p class="font-body-sm text-on-surface-variant">Literatura Universal</p>
+</div>
+</div>
+</td>
+<td class="px-xl py-md font-body-sm text-on-surface-variant">Humanidades</td>
+<td class="px-xl py-md">
+<div class="flex items-center gap-sm">
+<div class="w-16 bg-surface-container h-1.5 rounded-full">
+<div class="bg-primary h-full rounded-full" style="width: 85%"></div>
+</div>
+<span class="font-label-sm">85%</span>
+</div>
+</td>
+<td class="px-xl py-md">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]">star</span>
+</div>
+</td>
+<td class="px-xl py-md">
+<span class="px-md py-1 bg-secondary-container/20 text-secondary rounded-full font-label-sm">Sobresaliente</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-xl py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant font-bold">JV</div>
+<div>
+<p class="font-body-md font-medium text-on-surface">Javier Vargas</p>
+<p class="font-body-sm text-on-surface-variant">Educación Física</p>
+</div>
+</div>
+</td>
+<td class="px-xl py-md font-body-sm text-on-surface-variant">Deportes</td>
+<td class="px-xl py-md">
+<div class="flex items-center gap-sm">
+<div class="w-16 bg-surface-container h-1.5 rounded-full">
+<div class="bg-tertiary h-full rounded-full" style="width: 65%"></div>
+</div>
+<span class="font-label-sm">65%</span>
+</div>
+</td>
+<td class="px-xl py-md">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]">star</span>
+<span class="material-symbols-outlined text-[18px]">star</span>
+</div>
+</td>
+<td class="px-xl py-md">
+<span class="px-md py-1 bg-tertiary-fixed/30 text-tertiary rounded-full font-label-sm">Bajo Revisión</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Asymmetric Information Cards -->
+<div class="col-span-12 md:col-span-6 bg-primary-container p-xl rounded-xl text-on-primary-container relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="font-h3 text-h3 mb-md">Próximo Consejo Académico</h3>
+<p class="font-body-md opacity-90 mb-xl max-w-sm">Reunión estratégica para el cierre del segundo cuatrimestre y planificación de becas 2025.</p>
+<div class="flex gap-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined">event</span>
+<span class="font-label-md">15 Oct, 2024</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-label-md">10:00 AM</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined absolute -bottom-8 -right-8 text-[180px] opacity-10 rotate-12 group-hover:rotate-0 transition-transform duration-500">meeting_room</span>
+</div>
+<div class="col-span-12 md:col-span-6 bg-inverse-surface p-xl rounded-xl text-inverse-on-surface flex items-center gap-xl border border-outline-variant/10">
+<div class="flex-1">
+<h3 class="font-h3 text-h3 mb-md">Alertas Institucionales</h3>
+<ul class="space-y-sm">
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-tertiary-fixed-dim mt-0.5 text-[20px]">warning</span>
+<p class="font-body-sm">3 docentes con licencia médica prolongada.</p>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary-fixed-dim mt-0.5 text-[20px]">verified</span>
+<p class="font-body-sm">Certificación ISO 9001 renovada con éxito.</p>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary-fixed mt-0.5 text-[20px]">info</span>
+<p class="font-body-sm">Mantenimiento de laboratorios programado para el sábado.</p>
+</li>
+</ul>
+</div>
+<div class="hidden sm:block">
+<div class="w-32 h-32 rounded-xl bg-surface-variant/10 flex flex-col items-center justify-center border border-white/5">
+<span class="text-h2 font-black">03</span>
+<span class="font-label-sm opacity-60">Alertas</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
