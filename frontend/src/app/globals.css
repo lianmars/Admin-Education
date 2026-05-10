@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #006c49;
+  --color-primary-container: #10b981;
+  --color-on-primary-container: #00422b;
+  --color-primary-fixed: #6ffbbe;
+  
+  --color-surface: #f4fbf4;
+  --color-surface-container-low: #eef6ee;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-surface: #161d19;
+  --color-on-surface-variant: #3c4a42;
+  --color-outline-variant: #bbcabf;
+  --color-outline: #6c7a71;
+
+  --color-background: var(--color-surface);
+  --color-foreground: var(--color-on-surface);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  
+  --radius-xl: 0.5rem;
+  --radius-lg: 0.25rem;
+  
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+}
+
+body {
+  background-color: var(--color-surface);
+  background-image: radial-gradient(#006c4911 1px, transparent 1px);
+  background-size: 32px 32px;
+  color: var(--color-on-surface);
+}
+
+.login-card-shadow {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 10px 15px -5px rgba(0,0,0,0.02);
+}

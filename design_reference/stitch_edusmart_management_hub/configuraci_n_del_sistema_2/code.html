@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduManage - Configuración del Sistema</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#68dba9",
+                    "secondary-fixed": "#85f8c4",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#fc7c78",
+                    "primary": "#006c49",
+                    "on-secondary-fixed": "#002114",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#00422b",
+                    "on-primary-fixed": "#002113",
+                    "on-background": "#161d19",
+                    "surface-variant": "#dde4dd",
+                    "on-surface-variant": "#3c4a42",
+                    "on-surface": "#161d19",
+                    "tertiary-fixed": "#ffdad7",
+                    "primary-fixed-dim": "#4edea3",
+                    "secondary-container": "#82f5c1",
+                    "tertiary": "#a43a3a",
+                    "surface": "#f4fbf4",
+                    "primary-fixed": "#6ffbbe",
+                    "surface-container-low": "#eef6ee",
+                    "on-error": "#ffffff",
+                    "surface-container": "#e8f0e9",
+                    "primary-container": "#10b981",
+                    "outline": "#6c7a71",
+                    "on-tertiary-container": "#711419",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#006c49",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#006c4a",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-secondary-container": "#00714e",
+                    "inverse-surface": "#2b322d",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#842225",
+                    "surface-bright": "#f4fbf4",
+                    "on-secondary-fixed-variant": "#005137",
+                    "surface-container-high": "#e3eae3",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#dde4dd",
+                    "inverse-on-surface": "#ebf3eb",
+                    "background": "#f4fbf4",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "on-tertiary-fixed": "#410005",
+                    "inverse-primary": "#4edea3",
+                    "outline-variant": "#bbcabf",
+                    "surface-dim": "#d4dcd5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "lg": "24px",
+                    "sidebar_width": "260px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "base": "4px",
+                    "max_content_width": "1280px"
+            },
+            "fontFamily": {
+                    "h3": ["Inter"],
+                    "h2": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "h3": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "h1": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .card-shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 10px 15px -5px rgba(0,0,0,0.02); }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="w-sidebar_width h-screen sticky top-0 left-0 bg-surface-container-low flex flex-col border-r border-outline-variant">
+<div class="p-lg">
+<div class="font-h2 text-h2 font-bold text-primary mb-xs">EduManage</div>
+<div class="font-body-md text-label-sm text-on-surface-variant uppercase tracking-wider">SaaS Educativo</div>
+</div>
+<nav class="flex-1 px-md space-y-sm">
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md font-medium">Alumnos</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-body-md font-medium">Asistencias</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+<span class="font-body-md font-medium">Calificaciones</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="font-body-md font-medium">Estadísticas</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-primary font-bold border-r-4 border-primary bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md">Configuración</span>
+</a>
+</nav>
+<div class="p-md mt-auto border-t border-outline-variant space-y-sm">
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-body-md font-medium">Ayuda</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-body-md font-medium">Cerrar Sesión</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-40 bg-surface border-b border-outline-variant h-16 flex items-center px-lg justify-between">
+<div class="flex items-center gap-md flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-label-md focus:ring-2 focus:ring-primary" placeholder="Buscar ajustes..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-sm">
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-sm rounded-full hover:bg-surface-container-high transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="apps">apps</span>
+</button>
+</div>
+<div class="flex items-center gap-md pl-lg border-l border-outline-variant">
+<div class="text-right">
+<div class="font-label-md font-bold text-on-surface">Director Académico</div>
+<div class="text-[11px] text-on-surface-variant uppercase tracking-tighter">Administrador Senior</div>
+</div>
+<img alt="Avatar del Usuario" class="w-10 h-10 rounded-full object-cover border-2 border-surface-container-highest" data-alt="A professional headshot of a middle-aged academic director with a clean, scholarly look. He is set against a softly blurred library background with warm, intellectual lighting. The image maintains a high-key, modern aesthetic with crisp details and a palette of neutral wood tones and soft whites, fitting a professional SaaS environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF_v2EJGi2D3pIfH2tuTFyMtPHjAyud-fcTVWuwyr9aoGGvPyvdKdvJTIO6xk_rDV09NJSY5PnOMXRBvnNcNC3bUX6tjELxsmCUUk6qwHfMOkboREjXYZLpaxgpm-V4fhXPVCpgaOca3zUqhrNAlslXKEvkWS9PPst488dHg76wBGqh0D_HrmaUKEmHsqF0oJWDtWkPXGPzdeyVTmj1Tc4VgjxLIjSoDQtobZFhGyS1LF-YXCewgBxX-XTnb3ai2f1WszIFRIQYQ"/>
+</div>
+</div>
+</header>
+<main class="p-xl max-w-max_content_width mx-auto w-full">
+<!-- Page Header -->
+<div class="mb-xl flex justify-between items-end">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface mb-xs">Configuración del Sistema</h1>
+<p class="font-body-md text-on-surface-variant">Administra las preferencias institucionales, usuarios y parámetros de seguridad global.</p>
+</div>
+<button class="flex items-center gap-sm bg-primary text-on-primary px-lg py-md rounded-lg font-label-md shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                        Guardar Cambios
+                    </button>
+</div>
+<!-- Settings Tabs -->
+<div class="flex border-b border-outline-variant mb-xl gap-xl">
+<button class="pb-md font-label-md text-primary border-b-2 border-primary">User accounts</button>
+<button class="pb-md font-label-md text-on-surface-variant hover:text-on-surface transition-colors">Security</button>
+<button class="pb-md font-label-md text-on-surface-variant hover:text-on-surface transition-colors">Institutional Config</button>
+<button class="pb-md font-label-md text-on-surface-variant hover:text-on-surface transition-colors">Audit Log</button>
+</div>
+<!-- Bento Grid Layout for Settings Sections -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Roles & Permissions Column -->
+<div class="col-span-12 lg:col-span-8 space-y-lg">
+<div class="bg-surface-container-lowest p-lg rounded-xl card-shadow border border-outline-variant/30">
+<div class="flex justify-between items-center mb-lg">
+<h2 class="font-h3 text-h3 text-on-surface">Gestión de Usuarios</h2>
+<button class="text-primary font-label-md flex items-center gap-xs hover:underline">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+                                    Nuevo Usuario
+                                </button>
+</div>
+<div class="overflow-hidden">
+<table class="w-full">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="text-left py-md px-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Usuario</th>
+<th class="text-left py-md px-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Rol</th>
+<th class="text-left py-md px-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Estado</th>
+<th class="text-left py-md px-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Último Acceso</th>
+<th class="py-md px-sm"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-md px-sm flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs">AM</div>
+<div>
+<div class="font-label-md text-on-surface">Ana Martínez</div>
+<div class="text-xs text-on-surface-variant">ana.mtz@edumanage.edu</div>
+</div>
+</td>
+<td class="py-md px-sm font-body-sm text-on-surface">Administrador</td>
+<td class="py-md px-sm">
+<span class="px-sm py-0.5 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase tracking-widest">Activo</span>
+</td>
+<td class="py-md px-sm font-body-sm text-on-surface-variant">Hace 10 min</td>
+<td class="py-md px-sm text-right">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined" data-icon="edit">edit</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-md px-sm flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-xs">RP</div>
+<div>
+<div class="font-label-md text-on-surface">Ricardo Peña</div>
+<div class="text-xs text-on-surface-variant">r.pena@edumanage.edu</div>
+</div>
+</td>
+<td class="py-md px-sm font-body-sm text-on-surface">Docente</td>
+<td class="py-md px-sm">
+<span class="px-sm py-0.5 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase tracking-widest">Activo</span>
+</td>
+<td class="py-md px-sm font-body-sm text-on-surface-variant">Ayer, 18:45</td>
+<td class="py-md px-sm text-right">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined" data-icon="edit">edit</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-md px-sm flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-xs">SL</div>
+<div>
+<div class="font-label-md text-on-surface">Sofía López</div>
+<div class="text-xs text-on-surface-variant">s.lopez@edumanage.edu</div>
+</div>
+</td>
+<td class="py-md px-sm font-body-sm text-on-surface">Secretaría</td>
+<td class="py-md px-sm">
+<span class="px-sm py-0.5 bg-outline-variant text-on-surface-variant rounded-full text-[10px] font-bold uppercase tracking-widest">Inactivo</span>
+</td>
+<td class="py-md px-sm font-body-sm text-on-surface-variant">Hace 3 meses</td>
+<td class="py-md px-sm text-right">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined" data-icon="edit">edit</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Security Policy Summary -->
+<div class="bg-surface-container-lowest p-lg rounded-xl card-shadow border border-outline-variant/30 grid grid-cols-2 gap-lg">
+<div>
+<h3 class="font-label-md text-primary uppercase tracking-widest mb-md">Seguridad de Cuenta</h3>
+<div class="space-y-md">
+<div class="flex items-center justify-between p-md bg-surface border border-outline-variant/50 rounded-lg">
+<div>
+<div class="font-label-md text-on-surface">Autenticación 2FA</div>
+<div class="text-xs text-on-surface-variant">Obligatorio para Administradores</div>
+</div>
+<div class="w-10 h-5 bg-primary rounded-full relative cursor-pointer">
+<div class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-md bg-surface border border-outline-variant/50 rounded-lg">
+<div>
+<div class="font-label-md text-on-surface">Expiración de Clave</div>
+<div class="text-xs text-on-surface-variant">Cada 90 días naturales</div>
+</div>
+<div class="w-10 h-5 bg-outline-variant rounded-full relative cursor-pointer">
+<div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm"></div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-primary uppercase tracking-widest mb-md">Configuración de Red</h3>
+<div class="p-md bg-surface border border-outline-variant/50 rounded-lg space-y-md">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="lock">lock</span>
+<div class="flex-1">
+<div class="font-label-sm text-on-surface">Restricción de IP</div>
+<div class="text-[11px] text-on-surface-variant">Permitir solo desde red institucional</div>
+</div>
+<button class="text-xs font-bold text-primary">CONFIGURAR</button>
+</div>
+<hr class="border-outline-variant/30"/>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="shield">shield</span>
+<div class="flex-1">
+<div class="font-label-sm text-on-surface">Alertas de Intrusión</div>
+<div class="text-[11px] text-on-surface-variant">Notificar intentos fallidos (3+)</div>
+</div>
+<button class="text-xs font-bold text-primary">ACTIVADO</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Column: Institutional Branding & Logs -->
+<div class="col-span-12 lg:col-span-4 space-y-lg">
+<!-- Branding Card -->
+<div class="bg-surface-container-lowest p-lg rounded-xl card-shadow border border-outline-variant/30">
+<h3 class="font-h3 text-h3 text-on-surface mb-lg">Identidad Visual</h3>
+<div class="space-y-lg">
+<div class="relative group">
+<div class="w-full h-32 rounded-lg bg-surface-container-high flex items-center justify-center border-2 border-dashed border-outline-variant overflow-hidden">
+<img alt="School Logo Placeholder" class="max-h-full object-contain mix-blend-multiply opacity-80" data-alt="A clean, minimalist educational institution logo featuring an abstract open book and a stylized rising sun in deep green and teal. The logo is presented on a textured white background with subtle studio lighting, conveying a sense of heritage and modern innovation. The design is elegant and professional for an elite SaaS platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXHCI4FqANZu9rv87fbnORTQQqTkXCjw2JSIxVAAcw_7F_2qz-K2v7U13PV4pYSDrtTVDqS7pu7tqOWSTRTFy0Vz7bgzbXAkYvqaULgEWvCRvrPGgGLA0JFaBKBno1shOl_cNNK-gvKDwfdT70-FCV_aAW5fdpNfzvN9qyJuqprIc4Mt5M-6wlJUjBMQxH1Jpn1qEduvTjxCxbnKIdztSssn-e47OlhAc3UKvQ8cj2gnIi-CC809wo6gOdiGDoTKnZKMccT3kYAA"/>
+<div class="absolute inset-0 bg-on-surface/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+<span class="text-white font-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined" data-icon="upload">upload</span>
+                                                Cambiar Logo
+                                            </span>
+</div>
+</div>
+</div>
+<div class="space-y-md">
+<div>
+<label class="font-label-sm text-on-surface-variant block mb-xs">Color Principal</label>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary border-2 border-white shadow-sm"></div>
+<input class="flex-1 px-md py-sm rounded border border-outline-variant text-label-md focus:border-primary outline-none" type="text" value="#006C49"/>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-on-surface-variant block mb-xs">Nombre de la Institución</label>
+<input class="w-full px-md py-sm rounded border border-outline-variant text-label-md focus:border-primary outline-none" type="text" value="Colegio San Ignacio"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Audit Log -->
+<div class="bg-surface-container-lowest p-lg rounded-xl card-shadow border border-outline-variant/30">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-h3 text-h3 text-on-surface">Actividad Reciente</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+<div class="space-y-lg">
+<div class="flex gap-md">
+<div class="w-2 bg-primary rounded-full"></div>
+<div>
+<div class="font-label-md text-on-surface">Cambio de Rol</div>
+<p class="text-xs text-on-surface-variant">Ana M. cambió permisos de Ricardo P.</p>
+<span class="text-[10px] text-on-surface-variant uppercase font-bold">Hoy, 10:24 AM</span>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="w-2 bg-error rounded-full"></div>
+<div>
+<div class="font-label-md text-on-surface">Login Fallido</div>
+<p class="text-xs text-on-surface-variant">IP 192.168.1.45 (3 intentos)</p>
+<span class="text-[10px] text-on-surface-variant uppercase font-bold">Ayer, 11:45 PM</span>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="w-2 bg-secondary-fixed-dim rounded-full"></div>
+<div>
+<div class="font-label-md text-on-surface">Ajuste de Logo</div>
+<p class="text-xs text-on-surface-variant">Actualizado por Dirección Académica</p>
+<span class="text-[10px] text-on-surface-variant uppercase font-bold">15 Oct, 2:00 PM</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  DIRECTOR
+  DOCENTE
+  PRECEPTOR
+}
+
+enum AcademicStatus {
+  REGULAR
+  LIBRE
+  SUSPENDIDO
+}
+
+enum AttendanceStatus {
+  PRESENTE
+  AUSENTE
+  TARDE
+  JUSTIFICADO
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(DOCENTE)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  attendancesGiven Attendance[] @relation("TeacherAttendances")
+}
+
+model Course {
+  id        String   @id @default(uuid())
+  name      String   // ej. "4° Año"
+  year      Int      // ej. 2026
+  division  String   // ej. "A"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  students  Student[]
+}
+
+model Student {
+  id          String         @id @default(uuid())
+  firstName   String
+  lastName    String
+  dni         String         @unique
+  phone       String?
+  email       String?
+  tutorName   String?
+  status      AcademicStatus @default(REGULAR)
+  qrCode      String         @unique @default(uuid())
+
+  courseId    String
+  course      Course         @relation(fields: [courseId], references: [id])
+
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  // Relaciones
+  attendances Attendance[]
+}
+
+model Attendance {
+  id          String           @id @default(uuid())
+  date        DateTime         @default(now())
+  status      AttendanceStatus @default(PRESENTE)
+
+  studentId   String
+  student     Student          @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  teacherId   String
+  teacher     User             @relation("TeacherAttendances", fields: [teacherId], references: [id])
+
+  createdAt   DateTime         @default(now())
+}

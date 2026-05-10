@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#68dba9",
+                    "secondary-fixed": "#85f8c4",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#fc7c78",
+                    "primary": "#006c49",
+                    "on-secondary-fixed": "#002114",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#00422b",
+                    "on-primary-fixed": "#002113",
+                    "on-background": "#161d19",
+                    "surface-variant": "#dde4dd",
+                    "on-surface-variant": "#3c4a42",
+                    "on-surface": "#161d19",
+                    "tertiary-fixed": "#ffdad7",
+                    "primary-fixed-dim": "#4edea3",
+                    "secondary-container": "#82f5c1",
+                    "tertiary": "#a43a3a",
+                    "surface": "#f4fbf4",
+                    "primary-fixed": "#6ffbbe",
+                    "surface-container-low": "#eef6ee",
+                    "on-error": "#ffffff",
+                    "surface-container": "#e8f0e9",
+                    "primary-fixed": "#6ffbbe",
+                    "on-tertiary-container": "#711419",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#006c49",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#006c4a",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-secondary-container": "#00714e",
+                    "inverse-surface": "#2b322d",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#842225",
+                    "surface-bright": "#f4fbf4",
+                    "on-secondary-fixed-variant": "#005137",
+                    "surface-container-high": "#e3eae3",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "surface-container-highest": "#dde4dd",
+                    "inverse-on-surface": "#ebf3eb",
+                    "background": "#f4fbf4",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "on-tertiary-fixed": "#410005",
+                    "inverse-primary": "#4edea3",
+                    "outline-variant": "#bbcabf",
+                    "surface-dim": "#d4dcd5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "lg": "24px",
+                    "sidebar_width": "260px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "base": "4px",
+                    "max_content_width": "1280px"
+            },
+            "fontFamily": {
+                    "h3": ["Inter"],
+                    "h2": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "h3": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "h1": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .id-card-shadow {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 10px 15px -5px rgba(0,0,0,0.02);
+        }
+        .qr-gradient {
+            background: linear-gradient(135deg, #f4fbf4 0%, #e8f0e9 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="w-sidebar_width h-screen sticky top-0 left-0 flex flex-col h-full border-r border-outline-variant bg-surface-container-low">
+<div class="px-lg py-xl">
+<h1 class="font-h2 text-h2 font-bold text-primary">EduManage</h1>
+<p class="font-body-sm text-on-surface-variant">SaaS Educativo</p>
+</div>
+<nav class="flex-1 px-md space-y-xs">
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-md text-primary font-bold border-r-4 border-primary bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">group</span>
+                Alumnos
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+                Asistencias
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">star</span>
+                Calificaciones
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+                Estadísticas
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Configuración
+            </a>
+</nav>
+<div class="mt-auto px-md pb-xl space-y-xs">
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+                Ayuda
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg font-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 text-error" href="#">
+<span class="material-symbols-outlined">logout</span>
+                Cerrar Sesión
+            </a>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0 bg-surface">
+<!-- TopNavBar -->
+<header class="sticky top-0 w-full z-40 bg-surface border-b border-outline-variant">
+<div class="flex justify-between items-center px-lg py-sm w-full max-w-max_content_width mx-auto">
+<div class="flex items-center flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-xl pr-md py-xs bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary text-body-sm" placeholder="Buscar alumnos..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs text-on-surface-variant font-label-md">
+<span class="material-symbols-outlined">notifications</span>
+<span class="material-symbols-outlined">apps</span>
+</div>
+<div class="h-8 w-px bg-outline-variant mx-sm"></div>
+<div class="flex items-center gap-sm">
+<div class="text-right hidden md:block">
+<p class="font-label-md text-on-surface leading-none">Director Académico</p>
+<p class="font-label-sm text-on-surface-variant">Admin</p>
+</div>
+<img alt="Avatar del Usuario" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot of a mature academic director in a light-filled modern office. He is wearing a tailored navy blazer and a crisp white shirt, exuding an air of authority and approachability. The lighting is soft and natural, emphasizing a clean, institutional professional aesthetic with high clarity and a focused composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQI51oyEMBuX74-KKP5nApRS-EeCKfP9Pd1DnF4q0xrAyD1Yp6EcSENM31BSPhZSHoxnc7n4BdTZKGvoD-NcP6-3JCW1SpO7kp9urQafCBY-ZbD5bLYqLpMI3U7J99qGqA0jcoTGW-ynr6e3EPOu0ImYAaKfCIhtLroR8W9_sSMQf-jMqg4A-mWsk567xd532LJT_rG5uU09VppiKkGBZX8zrl1qdQm9hFEUdIo5_iRSDs1QXX4krZhe86g_rWJRjkVeTmN3u7XQ"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto p-lg">
+<div class="max-w-max_content_width mx-auto">
+<!-- Header Actions -->
+<div class="flex justify-between items-end mb-xl">
+<div>
+<nav class="flex items-center gap-xs text-on-surface-variant font-label-sm mb-xs">
+<span>Alumnos</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary">Credencial Digital</span>
+</nav>
+<h2 class="font-h1 text-h1 text-on-surface">Expediente del Alumno</h2>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-sm px-md py-sm border border-outline-variant rounded-lg text-primary font-label-md hover:bg-surface-container-high transition-all active:scale-95">
+<span class="material-symbols-outlined">print</span>
+                            Imprimir
+                        </button>
+<button class="flex items-center gap-sm px-md py-sm bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 shadow-sm transition-all active:scale-95">
+<span class="material-symbols-outlined">download</span>
+                            Descargar Credencial
+                        </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- ID CARD PREVIEW (Main Feature) -->
+<div class="col-span-12 lg:col-span-5 flex justify-center items-start">
+<div class="w-full max-w-[400px] bg-white rounded-xl overflow-hidden id-card-shadow border border-outline-variant relative">
+<!-- Card Header Pattern -->
+<div class="h-24 bg-primary relative overflow-hidden">
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 20px 20px;"></div>
+<div class="absolute top-md left-lg">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 bg-white rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">school</span>
+</div>
+<span class="text-white font-bold tracking-tight text-h3">EduManage</span>
+</div>
+</div>
+<div class="absolute top-md right-lg">
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] px-sm py-[2px] rounded-full font-bold uppercase tracking-wider">Ciclo 2024</span>
+</div>
+</div>
+<!-- Student Info -->
+<div class="flex flex-col items-center -mt-12 px-lg pb-lg">
+<div class="relative">
+<img alt="Student Photo" class="w-32 h-32 rounded-xl object-cover border-4 border-white shadow-md" data-alt="A professional studio portrait of a male student with a friendly expression. He is wearing a clean white school uniform shirt against a solid light gray background. The lighting is bright and even, following a high-quality institutional ID card aesthetic with sharp focus and professional color grading." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX2qXAI_Be8C0YtLjMo0KefKGpB_UsA8h3pv6qjDOfaNeDK5UQyrz_zP_QtJDmE2vNQgL5mcKFJeLw8nob0RrbSWBXt8vk2WOcuWC23kiM5fOz8e7MG4AjrNDwyaBi9VIa64bla8qTPqi28uUWCPzOTxgIdGS011NL0A2GxBS0Mm9aqC9AEHrK2nIgQXLUX4l1eOU_XSUmENIECHDfN8pJroFLnViLIpxRlaQKC8u6bi-UpyHcBel0DMay67_LAxx1PgaHScZEdA"/>
+<div class="absolute -bottom-2 -right-2 bg-primary text-white p-xs rounded-full border-2 border-white">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+</div>
+</div>
+<div class="text-center mt-md mb-lg">
+<h3 class="font-h2 text-h2 text-on-surface">Mateo Sebastian Ortiz</h3>
+<p class="font-label-md text-primary uppercase tracking-widest font-bold">5º Grado - División B</p>
+</div>
+<!-- QR Code Section -->
+<div class="w-full qr-gradient p-lg rounded-xl flex flex-col items-center justify-center border border-outline-variant">
+<div class="bg-white p-sm rounded-lg shadow-sm border border-outline-variant mb-sm">
+<img alt="Unique QR Code" class="w-32 h-32 opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD1sdkzZDgVV2xruENs4aX6Rwx4JJ4SLhg8QU57UBhTWeqG9O0CeFdrI9yroY5TJFartoB7JYb3O-VjQF5SVwAiZ6NGT2oIHTTTiRFOGfYIZb2kK-bcNm6-t26sQv2Z4d0vBwB50PjJtO4r15Ux_jGRrLuD_qSi2d2crMkoOnEe2lRvGXqN2Dvd1ha7io-S5UMPvN7NBwz08DrjvM7csASJprFcSYmv-fpMm8cppUyvTSAeMJ8zJ0wipbm97_flbl3PYY3XHgnxQ"/>
+</div>
+<p class="font-label-sm text-on-surface-variant font-mono">ID: STU-2024-091-B</p>
+</div>
+<!-- Detail List -->
+<div class="w-full mt-lg grid grid-cols-2 gap-md border-t border-outline-variant pt-lg">
+<div>
+<p class="font-label-sm text-on-surface-variant">Fecha de Nacimiento</p>
+<p class="font-body-md text-on-surface font-semibold">12 May 2011</p>
+</div>
+<div>
+<p class="font-label-sm text-on-surface-variant">Tipo de Sangre</p>
+<p class="font-body-md text-on-surface font-semibold">O+ Positivo</p>
+</div>
+<div class="col-span-2">
+<p class="font-label-sm text-on-surface-variant">Contacto de Emergencia</p>
+<p class="font-body-md text-on-surface font-semibold">+54 11 4567-8901</p>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="bg-surface-container-highest px-lg py-sm text-center">
+<p class="text-[10px] text-outline uppercase font-bold tracking-tighter italic">Válido exclusivamente para el periodo académico vigente</p>
+</div>
+</div>
+</div>
+<!-- ASYMMETRIC DETAILS PANEL -->
+<div class="col-span-12 lg:col-span-7 space-y-lg">
+<!-- Quick Stats -->
+<div class="grid grid-cols-3 gap-md">
+<div class="bg-white p-md rounded-xl id-card-shadow border-l-4 border-primary">
+<p class="font-label-sm text-on-surface-variant">Asistencia Global</p>
+<p class="font-h2 text-h2 text-primary">94%</p>
+</div>
+<div class="bg-white p-md rounded-xl id-card-shadow border-l-4 border-secondary-container">
+<p class="font-label-sm text-on-surface-variant">Promedio Gral</p>
+<p class="font-h2 text-h2 text-secondary">8.7</p>
+</div>
+<div class="bg-white p-md rounded-xl id-card-shadow border-l-4 border-tertiary-container">
+<p class="font-label-sm text-on-surface-variant">Conducta</p>
+<p class="font-h2 text-h2 text-tertiary">A+</p>
+</div>
+</div>
+<!-- Academic Record -->
+<div class="bg-white p-lg rounded-xl id-card-shadow border border-outline-variant">
+<div class="flex justify-between items-center mb-md">
+<h4 class="font-h3 text-h3 text-on-surface">Información de Inscripción</h4>
+<span class="bg-primary-container text-on-primary-container px-sm py-[2px] rounded text-[12px] font-bold">ACTIVO</span>
+</div>
+<div class="grid grid-cols-2 gap-xl">
+<div class="space-y-md">
+<div>
+<label class="block font-label-sm text-on-surface-variant">Institución</label>
+<p class="font-body-md text-on-surface">Instituto Superior de Educación EduManage</p>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface-variant">Sede Académica</label>
+<p class="font-body-md text-on-surface">Campus Central - Buenos Aires</p>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface-variant">Tutor Legal</label>
+<p class="font-body-md text-on-surface">Elena Maria Rodriguez</p>
+</div>
+</div>
+<div class="space-y-md">
+<div>
+<label class="block font-label-sm text-on-surface-variant">Fecha de Ingreso</label>
+<p class="font-body-md text-on-surface">01 de Marzo, 2021</p>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface-variant">Plan de Estudios</label>
+<p class="font-body-md text-on-surface">Bachiller con Orientación Técnica</p>
+</div>
+<div>
+<label class="block font-label-sm text-on-surface-variant">Correo Institucional</label>
+<p class="font-body-md text-primary underline">m.ortiz@edumanage.edu.ar</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Notification Banner -->
+<div class="bg-primary-container/10 border border-primary/20 p-md rounded-xl flex items-start gap-md">
+<span class="material-symbols-outlined text-primary">info</span>
+<div>
+<p class="font-label-md text-primary font-bold">Aviso de Renovación</p>
+<p class="font-body-sm text-on-surface-variant">Esta credencial digital se actualiza automáticamente al inicio de cada trimestre. No requiere trámites presenciales.</p>
+</div>
+</div>
+<!-- Accessibility Cards -->
+<div class="grid grid-cols-2 gap-md">
+<button class="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-outline-variant hover:bg-surface-container-high transition-colors text-left group">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-sm">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface font-bold">Validar QR</p>
+<p class="font-label-sm text-on-surface-variant">Verificar autenticidad</p>
+</div>
+</button>
+<button class="flex items-center gap-md p-md bg-surface-container-low rounded-xl border border-outline-variant hover:bg-surface-container-high transition-colors text-left group">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary group-hover:scale-110 transition-transform shadow-sm">
+<span class="material-symbols-outlined">share</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface font-bold">Compartir</p>
+<p class="font-label-sm text-on-surface-variant">Enviar vía email/WhatsApp</p>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
