@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api', // Ajustar en producción a la URL de Render/Railway
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api', // Usa variable de entorno o localhost por defecto
   headers: {
     'Content-Type': 'application/json',
   },
@@ -29,7 +29,7 @@ api.interceptors.response.use(
       if (typeof window !== 'undefined') {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.href = '/Admin-Education/';
+        window.location.href = '/';
       }
     }
     return Promise.reject(error);

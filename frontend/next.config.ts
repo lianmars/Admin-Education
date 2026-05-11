@@ -1,11 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
-  basePath: "/Admin-Education",
-  images: {
-    unoptimized: true,
-  },
+  // Puedes agregar configuraciones específicas de Vercel aquí si es necesario
 };
 
 export default nextConfig;
