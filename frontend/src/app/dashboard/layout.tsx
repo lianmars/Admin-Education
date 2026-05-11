@@ -16,6 +16,7 @@ const menuItems = [
   { label: "Alumnos", href: "/dashboard/alumnos", icon: "group" },
   { label: "Asistencias", href: "/dashboard/asistencia", icon: "fact_check" },
   { label: "Calificaciones", href: "/dashboard/informes", icon: "star" },
+  { label: "Comunicados", href: "/dashboard/comunicados", icon: "campaign" },
   { label: "Estadísticas", href: "/dashboard/estadisticas", icon: "bar_chart" },
   { label: "Credenciales", href: "/dashboard/credenciales", icon: "badge" },
   { label: "Configuración", href: "/dashboard/config", icon: "settings" },
