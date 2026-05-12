@@ -32,6 +32,7 @@ model User {
   password  String
   name      String
   role      Role     @default(DOCENTE)
+  avatarUrl String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -84,4 +85,12 @@ model Attendance {
   teacher     User             @relation("TeacherAttendances", fields: [teacherId], references: [id])
 
   createdAt   DateTime         @default(now())
+}
+
+model Institution {
+  id                  String   @id @default("1")
+  name                String   @default("Colegio Nacional")
+  schoolYear          String   @default("2026")
+  googleSpreadsheetId String?
+  updatedAt           DateTime @updatedAt
 }
