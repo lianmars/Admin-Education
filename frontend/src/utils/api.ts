@@ -1,7 +1,20 @@
 import axios from 'axios';
 
+const getBaseUrl = () => {
+  if (typeof process !== 'undefined' && process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  if (typeof window !== 'undefined') {
+    if (window.location.hostname === 'localhost') {
+      return 'http://localhost:5000/api';
+    }
+    return 'https://edumanage-backend-0f4b.onrender.com/api';
+  }
+  return 'https://edumanage-backend-0f4b.onrender.com/api';
+};
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api', // Usa variable de entorno o localhost por defecto
+  baseURL: getBaseUrl(),
   headers: {
     'Content-Type': 'application/json',
   },
