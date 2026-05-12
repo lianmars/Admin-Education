@@ -9,7 +9,7 @@ export default function CredencialesPage() {
   const credencialRef = useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [idCredencial, setIdCredencial] = useState("-");
-  const [qrValue, setQrValue] = useState("http://localhost:5000/api/attendance/scan/PENDIENTE");
+  const [qrValue, setQrValue] = useState("https://edumanage-backend-0f4b.onrender.com/api/attendance/scan/PENDIENTE");
 
   // Inscription Info states
   const [institucion, setInstitucion] = useState("Instituto Superior de Educación EduManage");
@@ -22,7 +22,7 @@ export default function CredencialesPage() {
     setTimeout(() => {
       const newId = "EDU-" + Math.floor(Math.random() * 1000000).toString().padStart(6, "0");
       setIdCredencial(newId);
-      setQrValue(`http://localhost:5000/api/attendance/scan/${newId}`);
+      setQrValue(`https://edumanage-backend-0f4b.onrender.com/api/attendance/scan/${newId}`);
       setIsGenerating(false);
       alert("Credencial generada exitosamente con ID: " + newId);
     }, 1500);
